@@ -1,0 +1,21 @@
+import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const port = Number(process.env.PORT || 4173);
+const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.mp4':'video/mp4','.pdf':'application/pdf','.xml':'application/xml','.txt':'text/plain; charset=utf-8'};
+const server = http.createServer((req,res)=>{
+  const u = new URL(req.url,'http://localhost');
+  let rel = decodeURIComponent(u.pathname).replace(/^\/+/, '');
+  let file = path.join(root, rel);
+  if (u.pathname.endsWith('/')) file = path.join(file,'index.html');
+  if (!path.extname(file) && fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file,'index.html');
+  if (!fs.existsSync(file) || !fs.statSync(file).isFile()) file = path.join(root,'404.html');
+  const ext=path.extname(file).toLowerCase();
+  res.statusCode = file.endsWith('404.html') ? 404 : 200;
+  res.setHeader('Content-Type', types[ext] || 'application/octet-stream');
+  res.setHeader('Accept-Ranges','bytes');
+  fs.createReadStream(file).pipe(res);
+});
+server.listen(port,()=>console.log(`Preview: http://localhost:${port}`));

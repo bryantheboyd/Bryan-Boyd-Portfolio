@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+*.log
+home-desktop.png
+test.png
+reel-hi-contact.jpg

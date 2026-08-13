@@ -1,0 +1,11 @@
+{
+  "name": "bryan-boyd-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs"
+  },
+  "description": "Dependency-free static portfolio site for Bryan Boyd, ready for Cloudflare Pages."
+}
