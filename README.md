@@ -33,16 +33,16 @@ npm run preview
 
 Then open `http://localhost:4173`.
 
-## Deploy to Cloudflare Pages
+## Deploy to Vercel
 
-Recommended settings:
+This repository is designed for the existing GitHub → Vercel deployment. Recommended project settings:
 
-- Framework preset: None
+- Framework preset: Other
+- Root directory: `./`
 - Build command: `npm run build`
-- Build output directory: `dist`
-- Node version: any current LTS / Node 20+
+- Output directory: `dist`
 
-Once the Pages project is live and approved, add the custom domain `www.bryantheboyd.com` in Cloudflare Pages and update DNS away from Wix. Do the DNS cutover only after verifying the Pages preview URL.
+Push changes to the connected `main` branch and Vercel will build and deploy automatically.
 
 ## Updating credits
 
