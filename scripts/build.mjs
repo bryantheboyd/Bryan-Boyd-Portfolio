@@ -38,7 +38,6 @@ const nav = (current, dark = false) => `
   <a class="site-name" href="/" ${current === 'home' ? 'aria-current="page"' : ''}>Bryan Boyd</a>
   <nav class="site-nav" aria-label="Primary navigation">
     <a href="/work/" ${current === 'work' ? 'aria-current="page"' : ''}>Work</a>
-    <a href="/endless-coronet/" ${current === 'coronet' ? 'aria-current="page"' : ''}>Coronet</a>
     <a href="/index/" ${current === 'index' ? 'aria-current="page"' : ''}>Index</a>
     <a href="/about/" ${current === 'about' ? 'aria-current="page"' : ''}>About</a>
     <a href="/documents/bryan-boyd-cv-2026.pdf" target="_blank" rel="noopener">CV ↗</a>
@@ -119,7 +118,7 @@ const reelDialog = `
 </dialog>`;
 
 const home = layout({
-  title: 'Bryan Boyd — Film, Strategy & Art',
+  title: 'Bryan Boyd — Filmmaker & Digital Media Strategist',
   current: 'home',
   pathName: '/',
   body: `
@@ -128,7 +127,7 @@ const home = layout({
     <h1 class="display"><span>Bryan</span><span class="line-two">Boyd</span></h1>
   </div>
   <div class="hero-foot">
-    <div class="practice meta">Film / Strategy / Art</div>
+    <div class="practice meta">Film / Strategy / Independent work</div>
     <div class="location meta">Indianapolis, Indiana</div>
     <div class="down meta" aria-hidden="true">↓</div>
   </div>
@@ -159,21 +158,6 @@ const home = layout({
   </section>
 
   <section class="section">
-    <div class="coronet-feature">
-      <a class="coronet-image-wrap reveal" href="/endless-coronet/" aria-label="View Endless Coronet project">
-        <img src="/images/coronet/exposure-00000165.jpg" width="1024" height="1024" alt="A white milk coronet rising from deep red liquid against black, from Endless Coronet">
-      </a>
-      <div class="coronet-copy reveal">
-        <div class="eyebrow">Generative artwork · 2026</div>
-        <h2 class="h2">Endless<br>Coronet</h2>
-        <p>Each exposure is generated from a visitor’s timing and a single setting between observed and imagined, then entered into a permanent uncurated archive.</p>
-        <a class="text-link" href="/endless-coronet/">View project <span class="arrow">→</span></a><br>
-        <a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter work <span class="arrow">↗</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
     <div class="recognition-grid">
       <div class="recognition-big reveal">
         <div class="number">5×</div>
@@ -199,6 +183,18 @@ const home = layout({
       <div class="about-links reveal"><a class="text-link" href="/about/">Continue <span class="arrow">→</span></a></div>
     </div>
   </section>
+
+  <section class="section selected-project-home">
+    <div class="selected-project-row reveal">
+      <div class="eyebrow">Selected project</div>
+      <div class="selected-project-title">Endless Coronet</div>
+      <div class="selected-project-meta">Generative artwork · 2026</div>
+      <div class="selected-project-links">
+        <a href="/endless-coronet/">Project →</a>
+        <a href="${site.coronet}" target="_blank" rel="noopener">Enter ↗</a>
+      </div>
+    </div>
+  </section>
 </div>
 ${reelDialog}`
 });
@@ -213,7 +209,7 @@ const work = layout({
 <div class="page-shell">
   <section class="page-intro">
     <h1 class="h1">Work</h1>
-    <div class="intro-meta meta">Film / Campaigns / Art</div>
+    <div class="intro-meta meta">Film / Campaigns / Independent work</div>
   </section>
 
   <section class="section work-feature">
@@ -242,10 +238,17 @@ const work = layout({
     </div>
   </section>
 
-  <section class="section">
-    <div class="coronet-feature">
-      <a class="coronet-image-wrap reveal" href="/endless-coronet/"><img src="/images/coronet/exposure-00000132.jpg" width="1024" height="1024" loading="lazy" alt="A narrow vertical milk column suspended above red liquid, from Endless Coronet"></a>
-      <div class="coronet-copy reveal"><div class="eyebrow">Art / Experiments</div><h2 class="h2">Endless<br>Coronet</h2><p>A generative artwork that turns a visitor’s timing into a numbered synthetic exposure.</p><a class="text-link" href="/endless-coronet/">View project <span class="arrow">→</span></a><br><a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter work <span class="arrow">↗</span></a></div>
+  <section class="section side-project-section">
+    <div class="side-project">
+      <a class="side-project-image reveal" href="/endless-coronet/" aria-label="View Endless Coronet project">
+        <img src="/images/coronet/exposure-00000165.jpg" width="1024" height="1024" loading="lazy" alt="A white milk coronet rising from deep red liquid against black, from Endless Coronet">
+      </a>
+      <div class="side-project-copy reveal">
+        <div class="eyebrow">Selected project · 2026</div>
+        <h2 class="h3">Endless Coronet</h2>
+        <p>A generative artwork that turns a visitor’s timing into a numbered synthetic exposure.</p>
+        <div class="side-project-actions"><a class="text-link" href="/endless-coronet/">Project <span class="arrow">→</span></a><a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter <span class="arrow">↗</span></a></div>
+      </div>
     </div>
   </section>
 
@@ -266,63 +269,49 @@ const coronet = layout({
   og: '/images/coronet/exposure-00000165.jpg',
   description: 'Endless Coronet is a generative artwork by Bryan Boyd that inverts Harold Edgerton’s stroboscopic milk-drop photography.',
   body: `
-<section class="coronet-hero coronet-hero-v2">
-  <div class="coronet-hero-media reveal"><img src="/images/coronet/exposure-00000132.jpg" width="1024" height="1024" alt="A thin milk column rising to a spherical form above red liquid"></div>
+<section class="coronet-hero coronet-hero-compact">
+  <div class="coronet-hero-media reveal"><img src="/images/coronet/exposure-00000165.jpg" width="1024" height="1024" alt="A white milk coronet rising from deep red liquid against black"></div>
   <div class="coronet-hero-copy reveal">
     <div class="eyebrow">Generative artwork · 2026</div>
     <h1 class="h1">Endless<br>Coronet</h1>
     <div class="meta">Bryan Boyd</div>
-    <a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter Endless Coronet <span class="arrow">↗</span></a>
+    <a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter the work <span class="arrow">↗</span></a>
   </div>
 </section>
 
-<div class="page-shell coronet-page">
-  <section class="section">
-    <div class="coronet-wall">
-      <div class="eyebrow reveal">Wall text</div>
-      <blockquote class="reveal">${esc(wallText)}</blockquote>
+<div class="page-shell coronet-page coronet-compact">
+  <section class="section coronet-context">
+    <div class="coronet-context-grid">
+      <div class="eyebrow reveal">About the work</div>
+      <p class="coronet-wall-copy reveal">${esc(wallText)}</p>
     </div>
   </section>
 
-  <section class="section coronet-sequence-section">
-    <div class="coronet-sequence-head reveal">
-      <div class="eyebrow">Selected exposures</div>
-      <p class="body-large">Selected exposures from the permanent, uncurated archive.</p>
-    </div>
-    <div class="coronet-sequence">
-      <figure class="sequence-a reveal"><img src="/images/coronet/exposure-00000135.jpg" width="1024" height="1024" loading="lazy" alt="A symmetrical branching milk form rising from red liquid"><figcaption class="coronet-caption">Exposure 00000135</figcaption></figure>
-      <figure class="sequence-b reveal"><img src="/images/coronet/exposure-00000164.jpg" width="1024" height="1024" loading="lazy" alt="An irregular folded milk splash over red liquid"><figcaption class="coronet-caption">Exposure 00000164</figcaption></figure>
-      <figure class="sequence-c reveal"><img src="/images/coronet/exposure-00000165.jpg" width="1024" height="1024" loading="lazy" alt="A white milk coronet rising from red liquid against black"><figcaption class="coronet-caption">Exposure 00000165</figcaption></figure>
-      <figure class="sequence-d reveal"><img src="/images/coronet/exposure-00000177.jpg" width="1024" height="1024" loading="lazy" alt="A web of milk filaments and droplets suspended over red liquid"><figcaption class="coronet-caption">Exposure 00000177</figcaption></figure>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="archive-intro">
-      <div class="eyebrow reveal">The record</div>
-      <p class="body-large reveal">Every exposure receives a number and remains in the archive, regardless of outcome. The record preserves the trigger timing and the parameters that produced it.</p>
-    </div>
-    <div class="archive-plates">
-      <figure class="archive-plate archive-plate-primary reveal"><img src="/images/coronet/plate-00000214.png" width="1024" height="1776" loading="lazy" alt="Endless Coronet exposure record 00000214 with image, parameters and lab examination"><figcaption class="coronet-caption">Exposure 00000214 · archive record</figcaption></figure>
-      <figure class="archive-plate reveal"><img src="/images/coronet/plate-00000215.png" width="1024" height="1797" loading="lazy" alt="Endless Coronet exposure record 00000215 with image, parameters and lab examination"><figcaption class="coronet-caption">Exposure 00000215 · archive record</figcaption></figure>
-      <figure class="archive-plate reveal"><img src="/images/coronet/plate-00000218.png" width="1024" height="1776" loading="lazy" alt="Endless Coronet exposure record 00000218 with image, parameters and lab examination"><figcaption class="coronet-caption">Exposure 00000218 · archive record</figcaption></figure>
+  <section class="section coronet-documentation">
+    <div class="coronet-documentation-grid">
+      <figure class="coronet-doc-exposure reveal">
+        <img src="/images/coronet/exposure-00000177.jpg" width="1024" height="1024" loading="lazy" alt="A web of milk filaments and droplets suspended over red liquid">
+        <figcaption class="coronet-caption">Exposure 00000177</figcaption>
+      </figure>
+      <figure class="coronet-doc-record reveal">
+        <img src="/images/coronet/plate-00000214.png" width="1024" height="1776" loading="lazy" alt="Endless Coronet exposure record 00000214 with image, parameters and lab examination">
+        <figcaption class="coronet-caption">Exposure 00000214 · archive record</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section coronet-statement-compact">
     <div class="artist-statement">
       <div class="eyebrow reveal">Artist statement</div>
       <div class="statement reveal">${esc(artistStatement)}</div>
     </div>
   </section>
-
-
 </div>
 
-<section class="coronet-ending">
+<section class="coronet-ending coronet-ending-compact">
   <div class="eyebrow reveal">Live artwork</div>
-  <h2 class="h2 reveal">Endless Coronet continues with every exposure.</h2>
-  <a class="text-link reveal" href="${site.coronet}" target="_blank" rel="noopener">Enter Endless Coronet <span class="arrow">↗</span></a>
+  <h2 class="h2 reveal">Enter Endless Coronet.</h2>
+  <a class="text-link reveal" href="${site.coronet}" target="_blank" rel="noopener">Experience the work <span class="arrow">↗</span></a>
   <nav class="coronet-subnav reveal" aria-label="Project navigation"><a href="/work/">← Work</a><a href="/index/">Index →</a></nav>
 </section>`
 });

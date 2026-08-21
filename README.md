@@ -2,6 +2,8 @@
 
 Production-ready static portfolio built from Bryan Boyd's supplied CV, portrait, reel master, and Endless Coronet assets.
 
+This **v6 alternate** deliberately downplays Endless Coronet in the overall site hierarchy: it is removed from the primary navigation, reduced to a small selected-project reference on Home, treated as a secondary project on Work, and given a shorter documentary-style project page.
+
 ## What is included
 
 - Home
