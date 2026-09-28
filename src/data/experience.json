@@ -11,16 +11,17 @@
       "link": "Watch The Waiting Game Trailer",
       "frames": [
         {
-          "src": "/images/waiting-game/trailer-interview.jpg",
-          "alt": "An interview from The Waiting Game trailer",
+          "src": "/images/waiting-game/trailer-mural.jpg",
+          "alt": "A basketball mural on a brick building, from The Waiting Game trailer",
           "caption": "The Waiting Game / From the trailer"
         },
         {
-          "src": "/images/waiting-game/trailer-mural.jpg",
-          "alt": "A basketball mural on a brick building, from The Waiting Game trailer",
-          "caption": "The Waiting Game / Another frame from the trailer"
+          "src": "/images/waiting-game/trailer-interview.jpg",
+          "alt": "An interview from The Waiting Game trailer",
+          "caption": "The Waiting Game / From the trailer"
         }
-      ]
+      ],
+      "mobileInitialFrame": 1
     },
     {
       "id": "public",

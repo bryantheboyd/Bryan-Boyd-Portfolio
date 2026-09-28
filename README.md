@@ -97,3 +97,7 @@ The Waiting Game homepage opening, project card, archive image and social previe
 ## Mobile experience revision
 
 Phones and small tablets now have a dedicated composition in `src/styles/mobile.css`: a sticky menu, labeled channel controls, consistent project cards, readable text and filters, an About portrait that stays clear of the heading, ISTA section shortcuts, and larger dialog controls. The Waiting Game trailer uses a 720p mobile derivative while desktop keeps its 1080p file. The original GA4 property `G-XTPLG9LX0Y` remains installed on every page. See `MOBILE-REVIEW.md` for the evaluation, changes, validation, and deployment notes.
+
+## Arrow styling and desktop opening
+
+Mobile link arrows now use a custom SVG line shape in the current text color, avoiding platform-specific emoji rendering. The desktop homepage opens on the Waiting Game mural still; Another take switches to the interview. Mobile still opens on the interview and offers the mural as its alternate. Project thumbnails and the trailer poster retain their previously approved images.

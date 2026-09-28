@@ -34,3 +34,9 @@ These checks used Chromium with emulated phone/tablet viewports and touch input,
 Mobile styles live in `src/styles/mobile.css`; the build writes `dist/styles/mobile.css`. The shared templates and script contain the mobile menu, channel labels, ISTA section links, and mobile trailer selection. No framework or package dependency was added.
 
 Copy the delivered folder's contents into the existing repository, preserving its `.git` directory. Run `npm run build` and `npm run preview` if reviewing locally, then commit and push through the existing deployment workflow. This delivery does not push or publish changes.
+
+## Follow-up refinements
+
+The link arrows remain, but mobile now draws them with a custom monochrome SVG line shape rather than relying on a font/emoji glyph. The current-page marker and wordmark use the same geometry; arrows maintain their appropriate direction. Dynamic channel links and thread continuation use the same styling.
+
+At Bryan's request, the desktop homepage now starts with the mural frame that previously appeared through Another take. The interview becomes the desktop alternate. Mobile retains its interview opening. This is an intentional change to the desktop homepage photograph; the other reviewed desktop pages remain visually unchanged.

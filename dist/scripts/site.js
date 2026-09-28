@@ -52,23 +52,27 @@
   // Channel changes are intentional cuts. Nothing auto-advances or makes sound.
   const channel=$('.channel');
   if(channel){
-    let active=0,take=0,request=0;
+    const mobileChannel=matchMedia('(max-width:900px)');
+    const initialFrame=index=>mobileChannel.matches?(experience.channels[index].mobileInitialFrame||0):0;
+    let active=0,take=initialFrame(0),request=0;
     const presets=$$('[data-channel-select]');
-    const render=async(index,frame=0)=>{
+    const render=async(index,frame=initialFrame(index))=>{
       const ticket=++request,c=experience.channels[index],f=c.frames[frame];
       const preload=new Image();preload.src=f.src;try{await preload.decode()}catch{}
       if(ticket!==request)return;
       active=index;take=frame;channel.dataset.channel=c.id;
       preload.className='channel-image';preload.alt=f.alt;preload.width=1366;preload.height=720;
-      $('.channel-image').replaceWith(preload);
+      $('.channel-picture').replaceChildren(preload);
       $('[data-channel-label]').textContent=`CH. ${c.number} / ${c.label.toUpperCase()}`;
       $('[data-channel-title]').innerHTML=c.display;
       $('[data-channel-description]').textContent=c.description;
-      const a=$('[data-channel-link]');a.href=c.href;a.replaceChildren(document.createTextNode(c.link));const arrow=document.createElement('span');arrow.textContent='↗';a.append(arrow);
+      const a=$('[data-channel-link]');a.href=c.href;a.replaceChildren(document.createTextNode(c.link));const arrow=document.createElement('span');arrow.className='link-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';a.append(arrow);
       $('[data-frame-caption]').textContent=f.caption;
       presets.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
       $('[data-channel-status]').textContent=`Channel ${c.number}: ${c.title}. ${f.caption}.`;
     };
+    if(take)render(0,take);
+    mobileChannel.addEventListener('change',()=>render(active));
     $('[data-next-channel]').addEventListener('click',()=>render((active+1)%experience.channels.length));
     $('[data-another-take]').addEventListener('click',()=>render(active,(take+1)%experience.channels[active].frames.length));
     presets.forEach((b,i)=>b.addEventListener('click',()=>render(i)));
@@ -91,8 +95,9 @@
     if(thread&&Number.isInteger(position)&&position>=0&&position<thread.stops.length&&new URL(thread.stops[position].href,location.origin).pathname===location.pathname){
       threadBar.hidden=false;$('[data-thread-progress]').textContent=`THREAD ${thread.number} / STOP ${position+1} OF ${thread.stops.length}`;$('[data-thread-name]').textContent=thread.title;
       const next=$('[data-thread-next]');
-      if(position+1<thread.stops.length){const target=new URL(thread.stops[position+1].href,location.origin);target.searchParams.set('thread',thread.id);target.searchParams.set('stop',String(position+2));next.href=target.pathname+target.search+target.hash;next.textContent=`Next: ${thread.stops[position+1].title} ↗`}
-      else{next.href='/threads/';next.textContent='Thread complete. Pick another ↗'}
+      if(position+1<thread.stops.length){const target=new URL(thread.stops[position+1].href,location.origin);target.searchParams.set('thread',thread.id);target.searchParams.set('stop',String(position+2));next.href=target.pathname+target.search+target.hash;next.textContent=`Next: ${thread.stops[position+1].title}`}
+      else{next.href='/threads/';next.textContent='Thread complete. Pick another'}
+      const arrow=document.createElement('span');arrow.className='link-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';next.append(' ',arrow);
     }
   }
   const rows=$$('[data-credit-row]');
