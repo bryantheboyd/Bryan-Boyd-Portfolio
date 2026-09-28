@@ -1,440 +1,74 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, '..');
-const src = path.join(root, 'src');
-const publicDir = path.join(root, 'public');
-const dist = path.join(root, 'dist');
-
-const readJSON = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
-const credits = readJSON('src/data/credits.json');
-const recognition = readJSON('src/data/recognition.json');
-const site = readJSON('src/data/site.json');
-
-const esc = (value = '') => String(value)
-  .replaceAll('&', '&amp;')
-  .replaceAll('<', '&lt;')
-  .replaceAll('>', '&gt;')
-  .replaceAll('"', '&quot;');
-
-const attr = (value = '') => esc(value).replaceAll("'", '&#39;');
-const roleLabel = (roles) => roles.join(' / ');
-const roleTags = (roles) => {
-  const tags = [];
-  for (const role of roles) {
-    const r = role.toLowerCase();
-    if (r.includes('director')) tags.push('director');
-    if (r === 'dop' || r.includes('cinemat')) tags.push('dop');
-    if (r.includes('producer')) tags.push('producer');
-    if (r.includes('editor')) tags.push('editor');
-  }
-  return [...new Set(tags)];
-};
-
-const nav = (current, dark = false) => `
-<header class="site-header">
-  <a class="site-name" href="/" ${current === 'home' ? 'aria-current="page"' : ''}>Bryan Boyd</a>
-  <nav class="site-nav" aria-label="Primary navigation">
-    <a href="/work/" ${current === 'work' ? 'aria-current="page"' : ''}>Work</a>
-    <a href="/index/" ${current === 'index' ? 'aria-current="page"' : ''}>Index</a>
-    <a href="/about/" ${current === 'about' ? 'aria-current="page"' : ''}>About</a>
-    <a href="/documents/bryan-boyd-cv-2026.pdf" target="_blank" rel="noopener">CV ↗</a>
-  </nav>
-</header>`;
-
-const footer = (dark = false) => `
-<footer class="site-footer">
-  <div class="footer-name">Bryan Boyd</div>
-  <div class="footer-location">Indianapolis, Indiana</div>
-  <div class="footer-contact">
-    <a href="mailto:${site.email}">Email</a>
-    <a href="/documents/bryan-boyd-cv-2026.pdf" target="_blank" rel="noopener">Full CV ↗</a>
-  </div>
-</footer>`;
-
-function layout({ title, description = site.description, current, body, theme = 'light', og = '/images/reel/reel-48.jpg', pathName = '/' }) {
-  const canonical = new URL(pathName, site.domain).toString();
-  const ogUrl = new URL(og, site.domain).toString();
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTPLG9LX0Y"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XTPLG9LX0Y');
-  </script>
-  <title>${esc(title)}</title>
-  <meta name="description" content="${attr(description)}">
-  <link rel="canonical" href="${attr(canonical)}">
-  <meta name="theme-color" content="${theme === 'dark' ? '#050505' : '#f4f2ed'}">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="${attr(title)}">
-  <meta property="og:description" content="${attr(description)}">
-  <meta property="og:url" content="${attr(canonical)}">
-  <meta property="og:image" content="${attr(ogUrl)}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${attr(title)}">
-  <meta name="twitter:description" content="${attr(description)}">
-  <meta name="twitter:image" content="${attr(ogUrl)}">
-  <link rel="stylesheet" href="/styles/site.css">
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
-</head>
-<body data-theme="${theme}">
-  <a class="skip-link" href="#main">Skip to content</a>
-  ${nav(current, theme === 'dark')}
-  <main id="main">${body}</main>
-  ${footer(theme === 'dark')}
-  <script src="/scripts/site.js" defer></script>
-</body>
-</html>`;
+import {fileURLToPath} from 'node:url';
+import {projectBodies} from '../src/templates/project-pages.mjs';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),dist=path.join(root,'dist');
+const read=file=>JSON.parse(fs.readFileSync(path.join(root,'src/data',file),'utf8'));
+const site=read('site.json'),credits=read('credits.json'),recognition=read('recognition.json'),projects=read('projects.json'),experience=read('experience.json');
+const esc=(v='')=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+const json=value=>JSON.stringify(value).replaceAll('<','\\u003c');
+const slug=value=>value.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const num=(i,pad=2)=>String(i).padStart(pad,'0');
+const image=(src,alt,{eager=false,cls='',width=1366,height=720}={})=>`<img src="${src}" alt="${esc(alt)}" width="${width}" height="${height}" class="${cls}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async">`;
+const link=(href,label,cls='arrow-link')=>`<a class="${cls}" href="${href}"${href.startsWith('https:')?' target="_blank" rel="noopener noreferrer"':''}>${label}<span aria-hidden="true">↗</span></a>`;
+const cv='/documents/bryan-boyd-cv-2026.pdf';
+const rule=(label,note='')=>`<div class="rule"><span>${label}</span><span>${note}</span></div>`;
+const threadLink=(thread,i=0)=>{const u=new URL(thread.stops[i].href,site.domain);u.searchParams.set('thread',thread.id);u.searchParams.set('stop',String(i+1));return u.pathname+u.search+u.hash};
+const records=[...credits,{title:'Indiana State Teachers Association',format:'Creative strategy / Advocacy media',roles:['Senior Digital Media Strategist'],client:'ISTA',category:'advocacy'},{title:'Endless Coronet',format:'Generative artwork',roles:['Artist'],client:'Independent',category:'art',year:'2026'}].map((c,i)=>{
+ const p=projects.find(p=>p.creditTitles.includes(c.title));
+ return {...c,id:slug(c.title==='Google Year in Search 2020'?'Google Search Film 2020':c.title),number:num(i+1,3),project:p?.href||'',description:p?.description||'',year:p?.year||'',image:p?.creditImages?.[c.title]?.src||p?.image||'',imageAlt:p?.creditImages?.[c.title]?.alt||p?.imageAlt||''};
+});
+const dialogs=`<dialog class="reel-dialog" id="reel-dialog" aria-labelledby="reel-title"><div class="dialog-bar"><h2 id="reel-title">BRYAN BOYD / REEL</h2><button type="button" data-close-dialog autofocus>Close ×</button></div><video controls playsinline preload="none" poster="/images/frames/frame-054.jpg" aria-label="Bryan Boyd filmmaking reel"></video><p class="label">02:18 / Documentary · Narrative · Commercial</p></dialog>
+<dialog id="image-dialog" class="image-dialog" aria-label="Image detail"><button type="button" data-close-dialog autofocus>Close ×</button><img alt=""><p></p><a href="#" target="_blank" rel="noopener" data-image-original>Open full-size image ↗</a></dialog>
+<dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title"><button type="button" data-close-dialog autofocus>Back to the work ×</button><div class="end-card"><p class="label">FOR THE NEXT THING</p><h2 id="contact-title">CUT.</h2><p>BRYAN BOYD</p><p class="end-card-role">Filmmaker. Strategist. Artist.<br>Indianapolis, Indiana.</p><a class="email-address" href="mailto:${site.email}">${site.email} ↗</a><button type="button" data-copy-email>Copy email address</button><span role="status" data-copy-status></span><a class="label" href="${cv}" target="_blank" rel="noopener">Full CV ↗</a></div></dialog>
+<dialog id="random-dialog" class="random-dialog" aria-labelledby="random-title"><div class="dialog-bar"><span class="label">PULLED FROM THE ARCHIVE</span><button type="button" data-close-dialog autofocus>Close ×</button></div><div class="random-layout"><div class="random-visual"><span data-random-number></span><img data-random-image hidden alt=""></div><div><p class="label" data-random-format></p><h2 id="random-title"></h2><p data-random-role></p><p class="label" data-random-client></p><a class="arrow-link" data-random-link href="/index/">Open the record <span>↗</span></a><button class="random-again" type="button" data-random-again>Pull another ↻</button></div></div></dialog>`;
+function layout({title,body,route='/',current='',mode='',description=site.description,og='/images/waiting-game/trailer-interview.jpg'}){
+ const canonical=new URL(route,site.domain).href;
+ return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${canonical}"><meta name="theme-color" content="#111111"><meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${site.domain}${og}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${site.domain}${og}"><link rel="icon" href="/favicon.svg?v=bb-2" type="image/svg+xml"><link rel="preload" href="/fonts/anton.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/styles/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XTPLG9LX0Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XTPLG9LX0Y');</script><script type="application/ld+json">${json({'@context':'https://schema.org','@type':'Person',name:site.name,url:site.domain,jobTitle:'Filmmaker and Digital Media Strategist',image:site.domain+'/images/about/bryan-boyd-portrait.webp',email:site.email})}</script></head>
+<body class="${mode}" data-page="${current}"><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><a class="wordmark" href="/" aria-label="Bryan Boyd home"${current==='home'?' aria-current="page"':''}>BRYAN BOYD<span class="wordmark-mark" aria-hidden="true">↗</span></a><span class="header-description">FILM / STRATEGY / OTHER THINGS</span><nav aria-label="Main navigation">${[['work','/work/','The room'],['threads','/threads/','Threads'],['index','/index/','Index'],['about','/about/','Bryan']].map(([id,url,label])=>`<a href="${url}"${current===id?' aria-current="page"':''}>${label}</a>`).join('')}<button type="button" data-contact-open>Contact</button></nav></header>
+<main id="main">${body}</main>
+<footer class="site-footer"><div class="footer-top"><p>STILL HERE?</p><button type="button" data-contact-open>ROLL CREDITS.<span aria-hidden="true">↗</span></button></div><div class="footer-details"><span>BRYAN BOYD<br>INDIANAPOLIS, INDIANA</span><a href="mailto:${site.email}">${site.email} ↗</a><a href="${cv}" target="_blank" rel="noopener">CV / THE LONG VERSION ↗</a><a href="#main">BACK TO THE TOP ↑</a></div></footer>
+${dialogs}<script type="application/json" id="record-data">${json(records)}</script><script type="application/json" id="experience-data">${json(experience)}</script><script src="/scripts/site.js" defer></script><noscript><style>.js-control{display:none!important}</style></noscript></body></html>`;
 }
+const opening=experience.channels[0],openingFrame=opening.frames[0];
+const home=layout({title:'Bryan Boyd — Filmmaker, Strategist, Other Things',current:'home',mode:'home-page',body:`
+<h1 class="sr-only">Bryan Boyd — Filmmaker, Strategist, Artist</h1>
+<section class="channel" data-channel="film" aria-label="Three channels from Bryan Boyd’s work" tabindex="0"><div class="channel-picture">${image(openingFrame.src,openingFrame.alt,{eager:true,cls:'channel-image'})}</div><div class="channel-top"><span class="channel-id label" data-channel-label>CH. 01 / DOCUMENTARY</span><p class="channel-note">YOU’VE CAUGHT ME<br>IN THE MIDDLE<br>OF SOMETHING.</p></div><div class="channel-title-block"><span class="channel-kicker" data-channel-description>${opening.description}</span><h2 data-channel-title>${opening.display}</h2><a class="channel-project" data-channel-link href="${opening.href}">${opening.link}<span>↗</span></a></div><div class="channel-console"><div class="channel-controls"><button type="button" data-next-channel class="change-channel js-control">CHANGE THE CHANNEL <span aria-hidden="true">↪</span></button><div class="channel-presets js-control" role="group" aria-label="Choose a channel">${experience.channels.map((c,i)=>`<button type="button" data-channel-select="${i}" aria-label="Channel ${c.number}: ${c.label}" aria-pressed="${i===0}">${c.number}</button>`).join('')}</div></div><button type="button" data-another-take class="another-take js-control">Another take ↻</button><button type="button" data-reel-open class="watch-reel">Play reel <span>02:18 ↗</span></button></div><span class="sr-only" role="status" data-channel-status></span></section>
+<div class="under-monitor"><span data-frame-caption>${openingFrame.caption}</span><span>NO AUTOPLAY. YOUR MOVE.</span><a href="#ways-in">KEEP GOING ↓</a></div>
 
-const selectedTitles = [
-  'The Waiting Game',
-  'Pioneering Women of Sports: NBC Sports’ Big Ten Coverage',
-  'Snapchat: Reunited',
-  'Ransomware Is On The Rise',
-  'Orgasm Inc: The Story of OneTaste',
-  'D.B. Cooper: Where Are You?!',
-  'Microsoft Quantum for Government',
-  'Google Search Film 2020'
+<section class="ways-in" id="ways-in"><div class="section-intro"><span class="label">THREE LOOSE THREADS</span><h2>TAKE THE<br><span class="outline-type">LONG WAY.</span></h2><p>The work connects in places<br>the job titles don’t.</p></div><div class="thread-doors">${experience.threads.map((t,i)=>`<a class="thread-door door-${i+1}" href="${threadLink(t)}"><span class="label">${t.number} / ${t.stops.length} STOPS</span><h3>${t.title}</h3><span class="door-image">${image(t.image,t.alt,{width:i===2?2000:1024,height:i===0?1536:1024})}</span><span class="door-arrow" aria-hidden="true">↗</span></a>`).join('')}</div></section>
+<section class="reunited-feature"><div><span class="label">IN THE DIRECTOR’S CHAIR / SNAP ORIGINALS</span><h2>REUNITED.</h2><p>Season 1. Episodes 3 &amp; 6.<br>I directed these.</p>${link('/work/reunited/','Inside the series')}</div><a href="/work/reunited/" aria-label="Explore Snapchat Reunited">${image('/images/reunited/reunited-01.jpg','Reunited episode imagery and series artwork, from Bryan Boyd’s directing reel')}<span class="label">SNAP ORIGINALS / FUTURE STUDIOS ↗</span></a></section>
+<section class="loose-material"><div class="loose-heading"><span class="label">OFF THE MAIN TRACK</span><h2>OTHER<br>FREQUENCIES.</h2></div><a class="loose-netflix" href="/work/netflix/">${image('/images/netflix/orgasm-inc.jpg','Orgasm Inc: The Story of OneTaste title image from Bryan Boyd’s reel')}<span>ORGASM INC. / NETFLIX / FIELD PRODUCER ↗</span></a><a class="loose-google" href="/work/year-in-search/"><span class="label">GOOGLE / PULSE FILMS</span><span class="cut-year">20<br>20</span><span>THE YEAR IN QUESTIONS ↗</span></a><a class="loose-publication" href="/work/ista/#publications">${image('/images/ista/advocate-cover.jpg','The Advocate Fall 2025 cover',{width:1333,height:2000})}<span>PRINTED MATTER ↗</span></a><div class="loose-note"><span aria-hidden="true">↳</span><p>Films. Campaigns. Images.<br>Things that don’t fit in a job title.</p>${link('/work/','Everything in the room')}</div></section>
+<section class="chance-section"><div><span class="label">NO PARTICULAR ORDER</span><h2>GO ON.<br>PULL SOMETHING.</h2></div><div><p>Forty-two production credits, plus ongoing work and experiments. Let the archive make the next choice.</p><button type="button" class="chance-button js-control" data-random-open>Pull a random record <span>↗</span></button>${link('/index/','Or open the whole index')}</div><span class="chance-symbol" aria-hidden="true">↻</span></section>`});
+const roomPieces=[
+ {id:'the-waiting-game',cls:'room-waiting',title:'THE WAITING GAME',note:'Film / Producer · DOP · Editor'},
+ {id:'ista',cls:'room-ista',title:'PUBLIC SCHOOLS.<br>PUBLIC VOICES.',note:'ISTA / Strategy · Photography · Design'},
+ {id:'endless-coronet',cls:'room-art',title:'AN EVENT THAT<br>DIDN’T HAPPEN.',note:'Endless Coronet / Generative artwork'},
+ {id:'netflix',cls:'room-netflix',title:'IN THE FIELD',note:'Netflix / Field Producer'},
+ {id:'year-in-search',cls:'room-google',title:'2020',note:'Google / Commercial Coordinator'},
+ {id:'wall-street-journal',cls:'room-wsj',title:'RANSOM<br>WARE',note:'The Wall Street Journal / Producer · DOP'},
+ {id:'reunited',cls:'room-reunited',title:'REUNITED.',note:'Snap Originals / Director · S1E3 & S1E6'}
 ];
-const selected = selectedTitles.map((title) => credits.find((c) => c.title === title)).filter(Boolean);
-
-const creditRowsHome = selected.map((c) => `
-  <div class="credit-item reveal">
-    <div class="credit-title">${esc(c.title)}</div>
-    <div class="credit-role">${esc(roleLabel(c.roles))}</div>
-    <div class="credit-client">${esc(c.client)}</div>
-  </div>`).join('');
-
-const reelFrames = ['/images/reel/reel-8.jpg','/images/reel/reel-28.jpg','/images/reel/reel-48.jpg','/images/reel/reel-68.jpg','/images/reel/reel-88.jpg','/images/reel/reel-108.jpg','/images/reel/reel-128.jpg'];
-
-const reelDialog = `
-<dialog class="reel-dialog" id="reel-dialog" aria-label="Bryan Boyd reel">
-  <div class="reel-dialog-inner">
-    <button class="dialog-close" type="button" data-reel-close aria-label="Close reel">Close ×</button>
-    <video controls playsinline preload="none" poster="/images/reel/reel-48.jpg" aria-label="Bryan Boyd reel"></video>
-  </div>
-</dialog>`;
-
-const home = layout({
-  title: 'Bryan Boyd — Filmmaker & Digital Media Strategist',
-  current: 'home',
-  pathName: '/',
-  body: `
-<section class="hero">
-  <div class="hero-title">
-    <h1 class="display"><span>Bryan</span><span class="line-two">Boyd</span></h1>
-  </div>
-  <div class="hero-foot">
-    <div class="practice meta">Film / Strategy / Independent work</div>
-    <div class="location meta">Indianapolis, Indiana</div>
-    <div class="down meta" aria-hidden="true">↓</div>
-  </div>
-</section>
-
-<div class="page-shell">
-  <section class="section" id="reel">
-    <div class="reel-feature-grid">
-      <div class="reel-copy reveal">
-        <div class="eyebrow">Moving image</div>
-        <h2 class="h2">Reel</h2>
-        <p class="body-large">Documentary, television, commercial and independent work. One reel, on site.</p>
-        <a class="text-link" href="/work/">Work <span class="arrow">→</span></a>
-      </div>
-      <div class="reel-visual reveal">
-        <button class="reel-trigger" type="button" data-reel-open data-reel-scrub data-frames="${reelFrames.join(',')}" aria-label="Play Bryan Boyd reel">
-          <img src="/images/reel/reel-48.jpg" width="1600" height="844" alt="Frame from Bryan Boyd's filmmaking reel">
-        </button>
-        <p class="scrub-note">Move across the frame to scan the reel · click to watch</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="eyebrow reveal">Selected work</div>
-    <div class="credit-list">${creditRowsHome}</div>
-    <a class="text-link reveal" href="/index/">Full index <span class="arrow">→</span></a>
-  </section>
-
-  <section class="section">
-    <div class="recognition-grid">
-      <div class="recognition-big reveal">
-        <div class="number">5×</div>
-        <div class="award-word">Emmy® Award winner</div>
-      </div>
-      <div class="recognition-small reveal">
-        <div class="eyebrow">Selected recognition</div>
-        <ul>
-          <li>Heartland International Film Festival</li>
-          <li>Indiana Film Journalists Association</li>
-          <li>Indiana Society of Professional Journalists</li>
-          <li>Indy Shorts</li>
-        </ul>
-        <a class="text-link" href="/about/">About <span class="arrow">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="about-preview">
-      <div class="eyebrow reveal">About</div>
-      <p class="lede reveal">Bryan Boyd is an Indianapolis-based filmmaker and digital media strategist working across documentary, commercial production, advocacy media and experimental art.</p>
-      <div class="about-links reveal"><a class="text-link" href="/about/">Continue <span class="arrow">→</span></a></div>
-    </div>
-  </section>
-
-  <section class="section selected-project-home">
-    <div class="selected-project-row reveal">
-      <div class="eyebrow">Selected project</div>
-      <div class="selected-project-title">Endless Coronet</div>
-      <div class="selected-project-meta">Generative artwork · 2026</div>
-      <div class="selected-project-links">
-        <a href="/endless-coronet/">Project →</a>
-        <a href="${site.coronet}" target="_blank" rel="noopener">Enter ↗</a>
-      </div>
-    </div>
-  </section>
-</div>
-${reelDialog}`
-});
-
-const waitingGameAthletic = 'https://www.nytimes.com/athletic/7009946/2026/03/04/nba-aba-financial-benefits/?redirected=1';
-const waitingGamePost = 'https://www.washingtonpost.com/sports/2025/10/31/aba-documentary-the-waiting-game/';
-
-const work = layout({
-  title: 'Work — Bryan Boyd', current: 'work', pathName: '/work/',
-  description: 'Film, campaign strategy and independent work by Bryan Boyd.',
-  body: `
-<div class="page-shell">
-  <section class="page-intro">
-    <h1 class="h1">Work</h1>
-    <div class="intro-meta meta">Film / Campaigns / Independent work</div>
-  </section>
-
-  <section class="section work-feature">
-    <div class="work-feature-grid">
-      <div class="eyebrow reveal">The Waiting Game</div>
-      <div class="work-feature-copy body-large reveal">
-        <p>Bryan’s work breaks through the noise. He produced the independent impact film <em>The Waiting Game</em>, featured in <a class="inline-link" href="${waitingGameAthletic}" target="_blank" rel="noopener">The Athletic (The New York Times) ↗</a> and <a class="inline-link" href="${waitingGamePost}" target="_blank" rel="noopener">The Washington Post ↗</a>. By surfacing the human cost of the strategically structured NBA/ABA “merger,” the film advocates for the dignity and fair compensation of former players, including former stars now struggling to afford basic necessities.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section work-reel">
-    <div class="eyebrow reveal">Reel · 02:18</div>
-    <video class="reveal" controls playsinline preload="metadata" poster="/images/reel/reel-48.jpg" aria-label="Bryan Boyd reel">
-      <source src="/video/bryan-boyd-reel-mobile.mp4" media="(max-width: 700px)" type="video/mp4">
-      <source src="/video/bryan-boyd-reel-web.mp4" type="video/mp4">
-    </video>
-  </section>
-
-  <section class="section">
-    <div class="strategy-block">
-      <h2 class="h2 reveal">Campaigns &amp; strategy</h2>
-      <div class="body-large reveal">
-        <p>Today, Bryan applies this high-stakes creative rigor as Senior Digital Media Strategist at the Indiana State Teachers Association (ISTA), Indiana’s largest labor union. He leads digital-first creative strategy across video, social, and paid distribution—developing campaigns that compete in the attention economy and elevate member voices.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section side-project-section">
-    <div class="side-project">
-      <a class="side-project-image reveal" href="/endless-coronet/" aria-label="View Endless Coronet project">
-        <img src="/images/coronet/exposure-00000165.jpg" width="1024" height="1024" loading="lazy" alt="A white milk coronet rising from deep red liquid against black, from Endless Coronet">
-      </a>
-      <div class="side-project-copy reveal">
-        <div class="eyebrow">Selected project · 2026</div>
-        <h2 class="h3">Endless Coronet</h2>
-        <p>A generative artwork that turns a visitor’s timing into a numbered synthetic exposure.</p>
-        <div class="side-project-actions"><a class="text-link" href="/endless-coronet/">Project <span class="arrow">→</span></a><a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter <span class="arrow">↗</span></a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section work-index-link">
-    <div class="work-feature-grid">
-      <div class="eyebrow reveal">Credits</div>
-      <div class="reveal"><a class="text-link" href="/index/">View full index <span class="arrow">→</span></a></div>
-    </div>
-  </section>
-</div>`
-});
-
-const wallText = `In the 1930s, Harold Edgerton used stroboscopic photography to capture a milk drop at the instant of impact, too fast for the eye to see. ENDLESS CORONET inverts the experiment. A visitor triggers a strobe on a falling droplet. The timing, and a single setting between observed and imagined, generate a photograph of an event that never took place. Each exposure is numbered and added to a permanent, uncurated archive.`;
-const artistStatement = `ENDLESS CORONET is a generative artwork by Bryan Boyd that inverts Harold Edgerton's 1930s stroboscopic photography, in which a strobe timed to a falling milk drop captured an instant too fast for the eye to see. In ENDLESS CORONET, a visitor triggers a strobe on a falling droplet rendered on screen. The exact timing of that trigger, together with a single OBSERVED–IMAGINED setting, deterministically parameterizes a server-side process that generates a synthetic photograph of an event that never occurred. Where Edgerton recorded a real instant, ENDLESS CORONET produces one that has no referent. Every exposure is assigned a number and entered into a permanent, uncurated archive, regardless of its outcome.`;
-
-const coronet = layout({
-  title: 'Endless Coronet — Bryan Boyd', current: 'coronet', pathName: '/endless-coronet/', theme: 'dark',
-  og: '/images/coronet/exposure-00000165.jpg',
-  description: 'Endless Coronet is a generative artwork by Bryan Boyd that inverts Harold Edgerton’s stroboscopic milk-drop photography.',
-  body: `
-<section class="coronet-hero coronet-hero-compact">
-  <div class="coronet-hero-media reveal"><img src="/images/coronet/exposure-00000165.jpg" width="1024" height="1024" alt="A white milk coronet rising from deep red liquid against black"></div>
-  <div class="coronet-hero-copy reveal">
-    <div class="eyebrow">Generative artwork · 2026</div>
-    <h1 class="h1">Endless<br>Coronet</h1>
-    <div class="meta">Bryan Boyd</div>
-    <a class="text-link" href="${site.coronet}" target="_blank" rel="noopener">Enter the work <span class="arrow">↗</span></a>
-  </div>
-</section>
-
-<div class="page-shell coronet-page coronet-compact">
-  <section class="section coronet-context">
-    <div class="coronet-context-grid">
-      <div class="eyebrow reveal">About the work</div>
-      <p class="coronet-wall-copy reveal">${esc(wallText)}</p>
-    </div>
-  </section>
-
-  <section class="section coronet-documentation">
-    <div class="coronet-documentation-grid">
-      <figure class="coronet-doc-exposure reveal">
-        <img src="/images/coronet/exposure-00000177.jpg" width="1024" height="1024" loading="lazy" alt="A web of milk filaments and droplets suspended over red liquid">
-        <figcaption class="coronet-caption">Exposure 00000177</figcaption>
-      </figure>
-      <figure class="coronet-doc-record reveal">
-        <img src="/images/coronet/plate-00000214.png" width="1024" height="1776" loading="lazy" alt="Endless Coronet exposure record 00000214 with image, parameters and lab examination">
-        <figcaption class="coronet-caption">Exposure 00000214 · archive record</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="section coronet-statement-compact">
-    <div class="artist-statement">
-      <div class="eyebrow reveal">Artist statement</div>
-      <div class="statement reveal">${esc(artistStatement)}</div>
-    </div>
-  </section>
-</div>
-
-<section class="coronet-ending coronet-ending-compact">
-  <div class="eyebrow reveal">Live artwork</div>
-  <h2 class="h2 reveal">Enter Endless Coronet.</h2>
-  <a class="text-link reveal" href="${site.coronet}" target="_blank" rel="noopener">Experience the work <span class="arrow">↗</span></a>
-  <nav class="coronet-subnav reveal" aria-label="Project navigation"><a href="/work/">← Work</a><a href="/index/">Index →</a></nav>
-</section>`
-});
-
-const filterDefs = [
-  ['all','All'],['director','Director'],['dop','DOP'],['producer','Producer'],['editor','Editor'],['film','Film / TV'],['commercial','Commercial'],['advocacy','Advocacy']
-];
-const creditIndexRows = credits.map((c) => {
-  const tags = [c.category, ...roleTags(c.roles)].join(' ');
-  return `<div class="index-row" data-credit-row data-tags="${attr(tags)}">
-    <div class="index-project">${esc(c.title)}</div>
-    <div class="index-format">${esc(c.format)}</div>
-    <div class="index-role">${esc(roleLabel(c.roles))}</div>
-    <div class="index-client">${esc(c.client || '—')}</div>
-  </div>`;
-}).join('');
-
-const indexPage = layout({
-  title: 'Index — Bryan Boyd', current: 'index', pathName: '/index/',
-  description: 'A working index of Bryan Boyd’s film, television, commercial and advocacy credits.',
-  body: `
-<div class="page-shell">
-  <section class="page-intro">
-    <div class="index-head" style="grid-column:1/-1;width:100%">
-      <h1 class="h1">Index</h1>
-      <div class="index-count" data-index-count>${credits.length} entries</div>
-    </div>
-  </section>
-  <section class="section" style="padding-top:0">
-    <p class="body-large reveal">A compact working archive of production credits.</p>
-    <div class="filters reveal" aria-label="Filter credits">
-      ${filterDefs.map(([id,label]) => `<button class="filter-btn" type="button" data-filter="${id}" aria-pressed="${id === 'all'}">${label}</button>`).join('')}
-    </div>
-    <div class="index-table reveal">
-      <div class="index-row header" aria-hidden="true"><div>Project</div><div>Format</div><div>Role</div><div>Client / Outlet</div></div>
-      ${creditIndexRows}
-    </div>
-    <div class="index-empty" data-index-empty>No entries match this filter.</div>
-    <a class="text-link reveal" href="/documents/bryan-boyd-cv-2026.pdf" target="_blank" rel="noopener">Full CV <span class="arrow">↗</span></a>
-  </section>
-</div>`
-});
-
-const selectedRecognition = [
-  {year:'2018', name:'Emmy® Award', detail:'Winner — Nostalgia Program'},
-  {year:'2017', name:'Emmy® Award', detail:'Winner — Cultural and Historical Programming'},
-  {year:'2012', name:'Emmy® Awards', detail:'Winner — Best Editor; Cultural and Historical Programming'},
-  {year:'2010', name:'Emmy® Award', detail:'Winner — Nostalgia Program'},
-  {year:'2024', name:'Heartland International Film Festival', detail:'Audience Choice — The Waiting Game'},
-  {year:'2024', name:'Indiana Film Journalists Association', detail:'Edward Johnson-Ott Hoosier Award — The Waiting Game'},
-  {year:'2020', name:'Indiana Society of Professional Journalists', detail:'Best Coverage of Social Justice Issues'},
-  {year:'2018', name:'Indy Shorts', detail:'Indiana Spotlight Award — When Kids Wrote the Headlines'}
-];
-const recRows = selectedRecognition.map(r => `<div class="rec-row"><div class="rec-year">${r.year}</div><div>${esc(r.name)}</div><div>${esc(r.detail)}</div></div>`).join('');
-
-const about = layout({
-  title: 'About — Bryan Boyd', current: 'about', pathName: '/about/', og: '/images/about/bryan-boyd-portrait.webp',
-  body: `
-<div class="page-shell">
-  <section class="section" style="padding-top:clamp(50px,8vw,110px)">
-    <div class="about-grid">
-      <div class="about-copy">
-        <div class="eyebrow reveal">About</div>
-        <h1 class="h1 reveal">Bryan<br>Boyd</h1>
-        <div class="body-large reveal">
-          <p>Bryan Boyd is an Indianapolis-based filmmaker and digital media strategist whose work spans documentary film, television, commercial production, advocacy media and experimental digital art.</p>
-          <p>A five-time Emmy® Award winner, Boyd has spent more than a decade directing, shooting and producing work for PBS, Netflix, NBCUniversal, The Wall Street Journal, Snap, Microsoft and A+E. His independent documentary work includes <em>The Waiting Game</em>, an impact film examining the human consequences of the NBA/ABA merger and the fight by former players for recognition and fair compensation. The film has been featured in <a class="inline-link" href="${waitingGameAthletic}" target="_blank" rel="noopener">The Athletic ↗</a> and <a class="inline-link" href="${waitingGamePost}" target="_blank" rel="noopener">The Washington Post ↗</a>.</p>
-          <p>Today, Boyd serves as Senior Digital Media Strategist at the Indiana State Teachers Association, where he leads digital-first creative strategy across video, social media and paid distribution. Alongside that work, he continues to develop independent films and experimental projects.</p>
-          <p>Across documentary, advocacy and experimental media, his work is grounded in the same idea: finding the form a story needs, making it difficult to ignore, and using attention toward something larger than itself.</p>
-        </div>
-        <div class="about-contact reveal">
-          <a class="text-link" href="mailto:${site.email}">Email <span class="arrow">→</span></a>
-          <a class="text-link" href="/documents/bryan-boyd-cv-2026.pdf" target="_blank" rel="noopener">Full CV <span class="arrow">↗</span></a>
-        </div>
-      </div>
-      <figure class="about-portrait reveal" style="margin-top:0"><img src="/images/about/bryan-boyd-portrait.webp" width="784" height="1178" alt="Portrait of Bryan Boyd smiling with his arms crossed"></figure>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="eyebrow reveal">Selected recognition</div>
-    <div class="recognition-list reveal">${recRows}</div>
-    <a class="text-link reveal" href="/documents/bryan-boyd-cv-2026.pdf" target="_blank" rel="noopener">Complete record in the CV <span class="arrow">↗</span></a>
-  </section>
-</div>`
-});
-
-const notFound = layout({
-  title: 'Not Found — Bryan Boyd', current: '', pathName: '/404.html',
-  body: `<div class="page-shell"><section class="page-intro"><h1 class="h1">404</h1><div class="intro-meta"><p>That page isn’t here.</p><a class="text-link" href="/">Back home <span class="arrow">→</span></a></div></section></div>`
-});
-
-function write(rel, content) {
-  const target = path.join(dist, rel);
-  fs.mkdirSync(path.dirname(target), { recursive: true });
-  fs.writeFileSync(target, content);
-}
-
-fs.rmSync(dist, { recursive: true, force: true });
-fs.mkdirSync(dist, { recursive: true });
-fs.cpSync(publicDir, dist, { recursive: true });
-fs.mkdirSync(path.join(dist,'styles'), { recursive:true });
-fs.mkdirSync(path.join(dist,'scripts'), { recursive:true });
-fs.copyFileSync(path.join(src,'styles','site.css'), path.join(dist,'styles','site.css'));
-fs.copyFileSync(path.join(src,'scripts','site.js'), path.join(dist,'scripts','site.js'));
-
-write('index.html', home);
-write('work/index.html', work);
-write('endless-coronet/index.html', coronet);
-write('index/index.html', indexPage);
-write('about/index.html', about);
-write('404.html', notFound);
-
-write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.domain}/sitemap.xml\n`);
-write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['/','/work/','/endless-coronet/','/index/','/about/'].map(p => `  <url><loc>${new URL(p,site.domain)}</loc></url>`).join('\n')}\n</urlset>\n`);
-write('_headers', `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/images/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/video/*\n  Cache-Control: public, max-age=604800\n\n/documents/*\n  Cache-Control: public, max-age=86400\n`);
-
-console.log(`Built ${credits.length} credits and 5 pages into ${dist}`);
+const work=layout({title:'The Room — Bryan Boyd',current:'work',route:'/work/',mode:'room-page',body:`<header class="room-intro"><span class="label">COME IN. LOOK AROUND.</span><h1>THE ROOM<span aria-hidden="true">↴</span></h1><div><p>Some things I’ve made.<br>Some things I’m still thinking about.</p><button type="button" data-reel-open>RUN THE REEL / 02:18 ↗</button></div></header><section class="room-wall" aria-label="Project collection">${roomPieces.map(item=>{const p=projects.find(p=>p.slug===item.id);return `<a href="${p.href}" class="room-piece ${item.cls}"><span class="piece-number label">${p.number} / ${p.year||p.type}</span>${p.image?image(p.image,p.imageAlt):''}<h2>${item.title}</h2><span class="piece-note">${item.note}<span aria-hidden="true">↗</span></span></a>`}).join('')}</section><section class="room-exit"><p>THAT’S ONLY<br>PART OF IT.</p>${link('/index/','Open all 44 archive records')}${link('/threads/','Follow a connection')}</section>`});
+const threads=layout({title:'Follow a Thread — Bryan Boyd',current:'threads',route:'/threads/',mode:'threads-page',body:`<header class="threads-intro"><span class="label">THERE’S MORE THAN ONE WAY THROUGH.</span><h1>FOLLOW<br>A THREAD<span aria-hidden="true">↘</span></h1><p>Three short journeys through the work.<br>Each one starts with a question.</p></header>${experience.threads.map(t=>`<section class="thread-section" id="${t.id}"><div class="thread-section-name"><span class="label">THREAD ${t.number}</span><h2>${t.title}</h2><p>${t.intro}</p>${link(threadLink(t),'Start the thread')}</div><ol class="thread-stops">${t.stops.map((stop,i)=>`<li><span class="stop-number">${num(i+1)}</span><div><a href="${threadLink(t,i)}">${stop.title} ↗</a><p>${stop.note}</p></div></li>`).join('')}</ol></section>`).join('')}`});
+const tags=c=>[c.category,...c.roles.flatMap(role=>{const r=role.toLowerCase();return [r.includes('director')?'director':'',r==='dop'?'dop':'',r.includes('producer')?'producer':'',r==='editor'?'editor':'']})].filter(Boolean).join(' ');
+const indexRows=records.map(c=>`<details class="index-row" id="${c.id}" data-credit-row data-tags="${esc(tags(c))}" data-record-id="${c.id}" data-search="${esc([c.title,c.client,c.format,...c.roles,c.collaborators||'',c.year].join(' ').toLowerCase())}"><summary><span class="index-number label">${c.number}</span><span class="sheet-visual" aria-hidden="true">${c.image?image(c.image,''):`<span class="sheet-type">${esc(c.client||c.format)}</span>`}</span><span class="index-title">${esc(c.title)}</span><span class="index-role">${esc(c.roles.join(' / '))}</span><span class="index-client">${esc(c.client||'Independent')}</span><span class="index-plus" aria-hidden="true">+</span></summary><div class="index-detail"><dl><div><dt>Format</dt><dd>${esc(c.format)}</dd></div><div><dt>Role</dt><dd>${esc(c.roles.join(' / '))}</dd></div>${c.collaborators?`<div><dt>Collaborators / Notes</dt><dd>${esc(c.collaborators)}</dd></div>`:''}${c.year?`<div><dt>Year</dt><dd>${esc(c.year)}</dd></div>`:''}</dl>${c.project?`<div><p>${esc(c.description)}</p>${link(c.project,'Open project')}</div>`:''}</div></details>`).join('');
+const indexPage=layout({title:'The Index — Bryan Boyd',current:'index',route:'/index/',mode:'index-page',description:'Search 44 records of film, television, commercial, advocacy and independent work by Bryan Boyd.',body:`<header class="archive-head"><div><span class="label">A CAREER IN NO PARTICULAR ORDER</span><h1>THE INDEX<span class="index-total">/044</span></h1></div><button type="button" class="archive-random js-control" data-random-open>Pull something<br>at random ↻</button></header><section class="index-controls"><div class="index-tools"><label class="search-box"><span class="label">FIND SOMETHING</span><input type="search" data-index-search aria-label="Search projects, clients, roles and collaborators" placeholder="Project, client, role, collaborator…" autocomplete="off"></label><div class="view-switch js-control" role="group" aria-label="Archive layout"><button type="button" data-index-view="list" aria-pressed="true">List</button><button type="button" data-index-view="sheet" aria-pressed="false">Contact sheet</button></div></div><div class="filters" role="group" aria-label="Filter the archive">${[['all','Everything'],['director','Director'],['dop','DOP'],['producer','Producer'],['editor','Editor'],['film','Film / TV'],['commercial','Commercial'],['advocacy','Advocacy'],['art','Art']].map(([id,label])=>`<button type="button" data-filter="${id}" aria-pressed="${id==='all'}">${label}</button>`).join('')}</div><div class="archive-count"><span data-index-count role="status">44 records</span><button type="button" data-index-reset hidden>Clear filters ×</button><a href="${cv}" target="_blank" rel="noopener">FULL CV ↗</a></div></section><section class="index-layout" data-index-layout="list"><div class="index-table"><div class="index-table-head label" aria-hidden="true"><span>NO.</span><span>PROJECT</span><span>ROLE</span><span>CLIENT / OUTLET</span><span></span></div>${indexRows}<p class="index-empty" data-index-empty hidden>Nothing here by that name. <button type="button" data-clear-search>Start again ↻</button></p></div><aside class="index-preview" aria-label="Highlighted archive record"><div class="preview-media"><span data-preview-number>001</span><img data-preview-image hidden alt=""></div><span class="label">FROM THE ARCHIVE</span><p data-preview-title>${esc(records[0].title)}</p><span class="label" data-preview-client>${esc(records[0].client)}</span><p class="preview-hint">Point to a line.<br>Open it for the full record.</p></aside></section><p class="index-note">All 42 original production credits, plus ongoing work. Dates appear where documented. Numbers indicate the order of this index, not a chronology.</p>`});
+const projectFacts=p=>`<dl class="project-facts"><div><dt>Role</dt><dd>${p.roles}</dd></div><div><dt>Production / Outlet</dt><dd>${p.client}</dd></div>${p.collaborators?`<div><dt>Collaborator</dt><dd>${p.collaborators}</dd></div>`:''}<div><dt>Record</dt><dd>${p.number}${p.year?' / '+p.year:''}</dd></div></dl>`;
+const projectEnd=p=>{const n=projects[(projects.indexOf(p)+1)%projects.length];return `<nav class="thread-continue" data-thread-continue hidden aria-label="Continue your thread"><span class="label" data-thread-progress></span><p data-thread-name></p><a class="thread-next" data-thread-next href="/threads/">Continue ↗</a><a href="/threads/">All threads</a></nav><nav class="project-next" aria-label="Next project"><span class="label">OR SOMETHING ELSE</span>${link(n.href,n.title)}<a href="/index/">Full index ↗</a></nav>`};
+const bodies=projectBodies({projects,site,image,link,rule,projectFacts,projectEnd});
+const projectPages={};
+for(const p of projects)projectPages[p.href]=layout({title:`${p.title} — Bryan Boyd`,route:p.href,current:'work',mode:`project-page project-${p.slug}`,description:p.description,og:p.image,body:bodies[p.slug]});
+const recRows=[...recognition.emmyWins.map(r=>({year:r.year,name:'Emmy® Award',detail:r.category+' — '+r.result})),...recognition.journalism,...recognition.festivals].sort((a,b)=>Number(b.year)-Number(a.year)).map(r=>`<div class="recognition-row"><span>${r.year}</span><span>${esc(r.name)}</span><span>${esc(r.detail)}</span></div>`).join('');
+const about=layout({title:'The Guy in the Credits — Bryan Boyd',current:'about',route:'/about/',mode:'about-page',og:'/images/about/bryan-boyd-portrait.webp',body:`<section class="about-opening"><span class="label">YES, THAT’S ME.</span><h1>THE GUY<br>IN THE<br>CREDITS.</h1><figure>${image('/images/about/bryan-boyd-portrait.webp','Bryan Boyd smiling with his arms crossed',{eager:true,width:784,height:1178})}<figcaption>BRYAN BOYD / INDIANAPOLIS</figcaption></figure><div class="about-fast"><a href="mailto:${site.email}">${site.email} ↗</a><a href="${cv}" target="_blank" rel="noopener">THE CV ↗</a></div></section><section class="bio"><div><span class="label">FILMMAKER / STRATEGIST / ARTIST</span><h2>I MAKE<br>THINGS.<br><span class="outline-type">I GET<br>CURIOUS.</span></h2></div><div class="reading"><p>I’m Bryan Boyd. For twenty years, I’ve worked across documentary, television and commercial production: directing, shooting, editing and producing.</p><p>That work has taken me into projects for PBS, Netflix, NBCUniversal, The Wall Street Journal, Snap, Microsoft and A+E. On <a href="/work/the-waiting-game/">The Waiting Game</a>, I was a producer, director of photography and editor, following former ABA players’ fight for recognition and fair compensation.</p><p>These days, I’m Senior Digital Media Strategist at the Indiana State Teachers Association. That means films, photographs, publications, campaigns—and figuring out how those things work together.</p><p>Then there are the experiments. <a href="/endless-coronet/">Endless Coronet</a> makes photographs of events that never happened. It asks what an image can claim to know.</p><p>This is where I keep it all.</p><button type="button" class="bio-contact" data-contact-open>GET IN TOUCH ↗</button></div></section><section class="recognition-record">${rule('THE RECORD','AWARDS & RECOGNITION')}<h2>SOME OF IT<br>GOT NOTICED.</h2><p>Five regional Emmy® Awards, alongside recognition for documentary, cinematography and journalism.</p>${recRows}</section>`});
+const notFound=layout({title:'Signal Lost — Bryan Boyd',route:'/404.html',mode:'not-found',body:`<section class="lost-signal"><span class="label">404 / THIS CHANNEL IS OFF AIR</span><h1>SIGNAL<br>LOST.</h1>${link('/','Back to the room')}${link('/index/','Try the index')}</section>`});
+const pages={'/':home,'/work/':work,'/threads/':threads,'/index/':indexPage,'/about/':about,...projectPages};
+const write=(file,content)=>{const target=path.join(dist,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,content)};
+fs.rmSync(dist,{recursive:true,force:true});fs.mkdirSync(dist,{recursive:true});fs.cpSync(path.join(root,'public'),dist,{recursive:true});
+write('styles/site.css',fs.readFileSync(path.join(root,'src/styles/site.css'),'utf8'));write('scripts/site.js',fs.readFileSync(path.join(root,'src/scripts/site.js'),'utf8'));
+for(const [route,html] of Object.entries(pages))write(route==='/'?'index.html':route.slice(1)+'index.html',html);
+write('404.html',notFound);write('favicon.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#111"/><g fill="#efff00"><path d="M8 12h12c8 0 12 4 12 11 0 4-2 7-5 9 4 2 6 5 6 10 0 7-5 10-13 10H8zm8 8v9h4c3 0 4-2 4-5s-1-4-4-4zm0 16v9h4c3 0 5-1 5-4s-2-5-5-5z"/><path d="M35 12h10c8 0 12 4 12 11 0 4-2 7-5 9 4 2 6 5 6 10 0 7-5 10-13 10H35zm8 8v9h2c3 0 4-2 4-5s-1-4-4-4zm0 16v9h2c3 0 5-1 5-4s-2-5-5-5z"/></g></svg>');
+write('robots.txt',`User-agent: *\nAllow: /\n\nSitemap: ${site.domain}/sitemap.xml\n`);write('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${Object.keys(pages).map(p=>`  <url><loc>${new URL(p,site.domain)}</loc></url>`).join('\n')}\n</urlset>`);
+write('_headers','/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/images/*\n  Cache-Control: public, max-age=604800\n\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/video/*\n  Cache-Control: public, max-age=604800\n\n/documents/*\n  Cache-Control: public, max-age=86400\n');
+console.log(`Built ${Object.keys(pages).length} pages / ${records.length} records / ${experience.threads.length} threads / ${experience.channels.length} channels.`);

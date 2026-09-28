@@ -1,0 +1,147 @@
+{
+  "channels": [
+    {
+      "id": "film",
+      "number": "01",
+      "label": "Documentary",
+      "title": "The Waiting Game",
+      "display": "THE WAITING<br>GAME",
+      "description": "The game ended. The fight didn’t.",
+      "href": "/work/the-waiting-game/#trailer",
+      "link": "Watch The Waiting Game Trailer",
+      "frames": [
+        {
+          "src": "/images/waiting-game/trailer-interview.jpg",
+          "alt": "An interview from The Waiting Game trailer",
+          "caption": "The Waiting Game / From the trailer"
+        },
+        {
+          "src": "/images/waiting-game/trailer-mural.jpg",
+          "alt": "A basketball mural on a brick building, from The Waiting Game trailer",
+          "caption": "The Waiting Game / Another frame from the trailer"
+        }
+      ]
+    },
+    {
+      "id": "public",
+      "number": "02",
+      "label": "Public life",
+      "title": "Public schools. Public voices.",
+      "display": "MAKE SOME<br>NOISE.",
+      "description": "Educators, in the picture.",
+      "href": "/work/ista/",
+      "link": "Into the crowd",
+      "frames": [
+        {
+          "src": "/images/ista/red-for-ed-01.jpg",
+          "alt": "Educators in red gathered in the Statehouse, speaking and holding signs",
+          "caption": "Red for Ed / Photography by Bryan Boyd"
+        },
+        {
+          "src": "/images/ista/red-for-ed-02.jpg",
+          "alt": "Educators raise public school signs inside the Statehouse",
+          "caption": "Red for Ed / Another moment"
+        }
+      ]
+    },
+    {
+      "id": "art",
+      "number": "03",
+      "label": "Synthetic images",
+      "title": "Endless Coronet",
+      "display": "THIS NEVER<br>HAPPENED.",
+      "description": "An image without an event.",
+      "href": "/endless-coronet/",
+      "link": "Inspect the evidence",
+      "frames": [
+        {
+          "src": "/images/coronet/exposure-00000347.webp",
+          "alt": "White milk filaments suspended over red liquid, synthetic exposure 00000347",
+          "caption": "Endless Coronet / Exposure 00000347"
+        },
+        {
+          "src": "/images/coronet/exposure-00000335.webp",
+          "alt": "A ring of milk filaments rising above red liquid, synthetic exposure 00000335",
+          "caption": "Endless Coronet / Exposure 00000335"
+        }
+      ]
+    }
+  ],
+  "threads": [
+    {
+      "id": "heard",
+      "number": "01",
+      "title": "Who gets heard?",
+      "intro": "A voice is one thing. Being listened to is another.",
+      "image": "/images/ista/at-the-microphone.jpg",
+      "alt": "An educator speaking into a microphone",
+      "stops": [
+        {
+          "title": "The Waiting Game",
+          "href": "/work/the-waiting-game/",
+          "note": "Former ABA players making a claim on the game they helped build."
+        },
+        {
+          "title": "In the field",
+          "href": "/work/netflix/",
+          "note": "Documentary field production: getting close enough to hear the story."
+        },
+        {
+          "title": "Member voices",
+          "href": "/work/ista/#campaigns",
+          "note": "Educators tell their own stories in recruitment films."
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "number": "02",
+      "title": "What counts as evidence?",
+      "intro": "Reporting, investigation, and a photograph of nothing that happened.",
+      "image": "/images/coronet/exposure-00000374.webp",
+      "alt": "A synthetic white dome within a milk splash",
+      "stops": [
+        {
+          "title": "Ransomware Is On The Rise",
+          "href": "/work/wall-street-journal/",
+          "note": "A documentary production record from The Wall Street Journal."
+        },
+        {
+          "title": "D.B. Cooper: Where Are You?!",
+          "href": "/work/netflix/",
+          "note": "Field production for a series about an unresolved story."
+        },
+        {
+          "title": "Endless Coronet",
+          "href": "/endless-coronet/",
+          "note": "The image looks like a record. The event never occurred."
+        }
+      ]
+    },
+    {
+      "id": "together",
+      "number": "03",
+      "title": "Things people do together.",
+      "intro": "A team, a crowd, a classroom. Different ways of showing up.",
+      "image": "/images/ista/red-for-ed-02.jpg",
+      "alt": "Educators gathered in the Statehouse",
+      "stops": [
+        {
+          "title": "A team, after the game",
+          "href": "/work/the-waiting-game/",
+          "note": "A documentary about recognition, compensation and collective memory."
+        },
+        {
+          "title": "A crowd, with a message",
+          "href": "/work/ista/#photography",
+          "note": "A photographic record of public education and public action."
+        },
+        {
+          "title": "A classroom, at work",
+          "href": "/work/ista/#classroom",
+          "note": "Portraits and hands-on learning in Members in Action 2026."
+        }
+      ]
+    }
+  ]
+}

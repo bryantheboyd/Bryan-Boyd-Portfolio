@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "the-waiting-game",
+    "number": "01",
+    "title": "The Waiting Game",
+    "type": "Feature documentary",
+    "year": "2024",
+    "roles": "Producer / DOP / Editor",
+    "client": "GoodVibes Media",
+    "collaborators": "Michael Husain",
+    "description": "A documentary about the former ABA players fighting for recognition and fair compensation after the NBA/ABA merger.",
+    "href": "/work/the-waiting-game/",
+    "creditTitles": [
+      "The Waiting Game"
+    ],
+    "image": "/images/waiting-game/trailer-interview.jpg",
+    "imageAlt": "An interview from The Waiting Game trailer"
+  },
+  {
+    "slug": "netflix",
+    "number": "02",
+    "title": "In the field",
+    "type": "Documentary / Docuseries",
+    "year": "",
+    "roles": "Field Producer",
+    "client": "Netflix",
+    "description": "Field production on Orgasm Inc: The Story of OneTaste and D.B. Cooper: Where Are You?!",
+    "image": "/images/netflix/orgasm-inc.jpg",
+    "imageAlt": "Orgasm Inc: The Story of OneTaste title image from Bryan Boyd’s reel",
+    "href": "/work/netflix/",
+    "creditTitles": [
+      "Orgasm Inc: The Story of OneTaste",
+      "D.B. Cooper: Where Are You?!"
+    ],
+    "creditImages": {
+      "Orgasm Inc: The Story of OneTaste": {
+        "src": "/images/netflix/orgasm-inc.jpg",
+        "alt": "Orgasm Inc: The Story of OneTaste title image from Bryan Boyd’s reel"
+      },
+      "D.B. Cooper: Where Are You?!": {
+        "src": "/images/frames/frame-090.jpg",
+        "alt": "D.B. Cooper: Where Are You?! title image from Bryan Boyd’s reel"
+      }
+    }
+  },
+  {
+    "slug": "year-in-search",
+    "number": "03",
+    "title": "Google Year in Search 2020",
+    "type": "Commercial",
+    "year": "2020",
+    "roles": "Commercial Coordinator",
+    "client": "Google / Pulse Films",
+    "collaborators": "James Marsh",
+    "description": "Google Year in Search 2020. A record of a year through the questions people asked.",
+    "image": "/images/frames/frame-130.jpg",
+    "imageAlt": "A search query over an aerial view of a coastline, from Bryan Boyd’s reel",
+    "href": "/work/year-in-search/",
+    "creditTitles": [
+      "Google Year in Search 2020"
+    ]
+  },
+  {
+    "slug": "wall-street-journal",
+    "number": "04",
+    "title": "Ransomware Is On The Rise",
+    "type": "Digital documentary short",
+    "year": "",
+    "roles": "Producer / DOP",
+    "client": "The Wall Street Journal",
+    "collaborators": "Emma Scott",
+    "description": "Production and cinematography for a Wall Street Journal digital documentary short.",
+    "href": "/work/wall-street-journal/",
+    "creditTitles": [
+      "Ransomware Is On The Rise"
+    ],
+    "image": "/images/wsj/ransomware.png",
+    "imageAlt": "Locked laptop illustrations from the Wall Street Journal ransomware documentary"
+  },
+  {
+    "slug": "ista",
+    "number": "05",
+    "title": "Public education. Public attention.",
+    "type": "Creative strategy / Advocacy media",
+    "year": "Ongoing",
+    "roles": "Senior Digital Media Strategist",
+    "client": "Indiana State Teachers Association",
+    "description": "An in-house creative practice spanning film, photography, publications, design, social media and paid campaigns for Indiana educators.",
+    "href": "/work/ista/",
+    "creditTitles": [
+      "Indiana State Teachers Association"
+    ],
+    "image": "/images/ista/red-for-ed-02.jpg",
+    "imageAlt": "Educators holding public school signs inside the Indiana Statehouse"
+  },
+  {
+    "slug": "endless-coronet",
+    "number": "06",
+    "title": "Endless Coronet",
+    "type": "Generative artwork",
+    "year": "2026",
+    "roles": "Artist",
+    "client": "Independent",
+    "description": "A photograph of an event that never happened. An experiment in timing, observation and synthetic images.",
+    "image": "/images/coronet/exposure-00000347.webp",
+    "imageAlt": "Synthetic white milk filaments suspended over red liquid, exposure 00000347",
+    "href": "/endless-coronet/",
+    "creditTitles": [
+      "Endless Coronet"
+    ]
+  },
+  {
+    "slug": "reunited",
+    "number": "07",
+    "title": "Snapchat: Reunited",
+    "type": "Digital docuseries",
+    "year": "",
+    "roles": "Director — S1E3 / S1E6",
+    "client": "Snap Originals / Future Studios",
+    "description": "Director of Season 1, Episodes 3 and 6 of Reunited, a digital documentary series for Snap Originals and Future Studios.",
+    "href": "/work/reunited/",
+    "creditTitles": [
+      "Snapchat: Reunited"
+    ],
+    "image": "/images/reunited/reunited-01.jpg",
+    "imageAlt": "Reunited episode imagery and series artwork, from Bryan Boyd’s directing reel"
+  }
+]
