@@ -93,3 +93,7 @@ See `REDESIGN-NOTES.md` for the visual direction and asset sources.
 ## Latest refinements
 
 The Waiting Game homepage opening, project card, archive image and social previews now use the interview still shown in “And a fair share.” The supplied September 28, 3:38 PM court/title screenshot is the trailer’s poster image. Reunited follows “Take the Long Way” on the homepage. The ISTA campaign examples now embed the supplied School Funding Explainer (starting at 00:09, matching the supplied link) and Why I Joined ISTA video, each beside its corresponding campaign description.
+
+## Mobile experience revision
+
+Phones and small tablets now have a dedicated composition in `src/styles/mobile.css`: a sticky menu, labeled channel controls, consistent project cards, readable text and filters, an About portrait that stays clear of the heading, ISTA section shortcuts, and larger dialog controls. The Waiting Game trailer uses a 720p mobile derivative while desktop keeps its 1080p file. The original GA4 property `G-XTPLG9LX0Y` remains installed on every page. See `MOBILE-REVIEW.md` for the evaluation, changes, validation, and deployment notes.

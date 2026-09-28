@@ -1,14 +1,32 @@
 (() => {
   const $=(s,root=document)=>root.querySelector(s),$$=(s,root=document)=>[...root.querySelectorAll(s)];
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  // A disclosure menu keeps navigation readable and reachable on a phone.
+  const header=$('.site-header'),navToggle=$('[data-nav-toggle]'),navigation=$('#main-navigation');
+  document.documentElement.classList.add('js');
+  const closeNavigation=(restore=false)=>{header.removeAttribute('data-nav-open');navToggle.setAttribute('aria-expanded','false');if(restore)navToggle.focus()};
+  navToggle.addEventListener('click',()=>{
+    const open=navToggle.getAttribute('aria-expanded')!=='true';
+    header.toggleAttribute('data-nav-open',open);navToggle.setAttribute('aria-expanded',String(open));
+  });
+  navigation.addEventListener('click',e=>{if(e.target.closest('a,button'))closeNavigation()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&header.hasAttribute('data-nav-open'))closeNavigation(true)});
+  document.addEventListener('click',e=>{if(!header.contains(e.target))closeNavigation()});
+  header.addEventListener('focusout',()=>{requestAnimationFrame(()=>{if(!header.contains(document.activeElement))closeNavigation()})});
+  matchMedia('(max-width:900px)').addEventListener('change',()=>closeNavigation());
   const records=JSON.parse($('#record-data').textContent),experience=JSON.parse($('#experience-data').textContent);
   const recordById=new Map(records.map(r=>[r.id,r]));
+  // Select the smaller trailer before playback, retaining native video controls.
+  const trailer=$('video[data-mobile-src]');
+  if(trailer&&matchMedia('(max-width:900px)').matches){
+    $('source',trailer).src=trailer.dataset.mobileSrc;trailer.load();
+  }
   const dialogOpeners=new WeakMap();
   const openDialog=(dialog,opener)=>{dialogOpeners.set(dialog,opener);dialog.showModal()};
   $$('dialog').forEach(dialog=>{
     $$('[data-close-dialog]',dialog).forEach(b=>b.addEventListener('click',()=>dialog.close()));
     dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
-    dialog.addEventListener('close',()=>dialogOpeners.get(dialog)?.focus({preventScroll:true}));
+    dialog.addEventListener('close',()=>{const opener=dialogOpeners.get(dialog);(opener?.getClientRects().length?opener:navToggle).focus({preventScroll:true})});
   });
   const reel=$('#reel-dialog'),video=$('video',reel);
   $$('[data-reel-open]').forEach(b=>b.addEventListener('click',()=>{

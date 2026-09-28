@@ -50,3 +50,7 @@ The Waiting Game homepage opening, project card, archive image and social previe
 The Room refinements: Google’s year, frame and credit now occupy separate layout rows, including wide desktop screens. The Ransomware card includes Bryan’s supplied 3:51 PM screenshot in full beneath its red title panel. The same image supplies the project’s archive thumbnail and social preview.
 
 The favicon is a custom BB vector monogram in acid yellow on black. Its versioned URL refreshes the previous cached icon. Room card layouts were checked at 320, 390, 768, 1024, 1440, 1920 and 2560 pixels.
+
+## Mobile redesign
+
+The desktop editing room is preserved. At 900 pixels and below, the site uses a separate responsive composition rather than the desktop collage. Headings and imagery occupy distinct rows, navigation stays reachable, record cards share a consistent structure, and touch controls and reading text are enlarged. The About portrait no longer overlaps its heading. The long ISTA page has sticky section links and swipeable event portraits. Mobile campaign videos precede their supporting copy and metrics. Endless Coronet keeps exposure controls next to the selected image. The full mobile evaluation is in `MOBILE-REVIEW.md`.
