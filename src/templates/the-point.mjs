@@ -1,0 +1,8 @@
+export function thePoint({link,email}){
+ return `<section class="point-intro">
+  <div class="point-title"><span class="label">BRYAN BOYD / THE SHORT VERSION</span><h1>HERE’S<br>THE POINT<span>.</span></h1><p class="point-proof">Five-time Emmy® winner.<br>Filmmaker. Digital media strategist.</p></div>
+  <div class="point-copy"><p class="point-lede">I make films. I build campaigns.<br>I want both to do something.</p><p>Over two decades, I’ve directed, shot, and produced work for PBS, Netflix, Snap, Microsoft, A+E, and The Wall Street Journal.</p><p>Today, I’m Senior Digital Media Strategist at the Indiana State Teachers Association. I bring films, photography, publications, and paid campaigns together to elevate educator voices and move people to act.</p><p class="point-signoff">A strange story. A clear plan.<br>Ideally, both.</p></div>
+  <nav class="point-actions" aria-label="The quickest ways to explore or get in touch"><button class="point-action point-play js-control" type="button" data-reel-open><span>PLAY THE REEL</span><span class="point-duration">02:18</span></button><noscript><a class="point-action point-play" href="/video/bryan-boyd-reel-web.mp4">WATCH THE REEL · 02:18</a></noscript><button class="point-action point-contact js-control" type="button" data-contact-open>LET’S TALK <span class="link-arrow" aria-hidden="true">↗</span></button></nav>
+ </section>
+ <section class="point-outro"><div><span class="label">YOUR TURN</span><h2>GOT SOMETHING<br>IN MIND?</h2><p>A film. A campaign. A problem that hasn’t picked a format yet.</p></div><div class="point-outro-links">${link('mailto:'+email,email)}${link('/about/','The longer version of me')}${link('/','Back to wandering')}</div></section>`;
+}

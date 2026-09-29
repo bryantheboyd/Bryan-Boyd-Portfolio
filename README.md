@@ -14,6 +14,7 @@ Open **http://localhost:4173**. Stop the preview with Ctrl+C. HTML pages use sit
 
 ## Take a look around
 
+- **Get to the point** opens the short version: a first-person bio, the reel, and contact. The homepage puts the Emmy/client proof line and a concrete ISTA campaign result above the opening film.
 - **Change the channel** on the opening screen. Documentary, public life, and synthetic images each have a different image, visual treatment, and project link. **Another take** changes the still. Arrow keys also switch channels when the opening has focus.
 - **The room** is a wall of seven featured projects. **Play reel** starts the reel when you ask for it.
 - **Threads** connects projects through three questions and ideas. Each project carries a next-stop link when you enter through a thread.
@@ -33,7 +34,8 @@ Vercel settings remain: Framework **Other**, build command **npm run build**, ou
 
 ## Pages
 
-- `/` — three-channel opening, thread entrances, project fragments and random record
+- `/` — credentials and strategy result, quick-route button, three-channel opening, thread entrances, project fragments and random record
+- `/the-point/` — concise bio, reel, and contact
 - `/work/` — project wall and reel
 - `/threads/` — three curated routes through the work
 - `/work/reunited/` — Snap Originals directing work, Season 1 Episodes 3 and 6
@@ -56,8 +58,11 @@ All previous routes remain available. `404.html`, canonical and social metadata,
 - `src/data/recognition.json`: supplied awards and recognition
 - `src/data/site.json`: name, email, domain and artwork URL
 - `src/templates/project-pages.mjs`: individual project layouts and copy
+- `src/templates/the-point.mjs`: the short bio, reel, and contact
 - `scripts/build.mjs`: shared layout, homepage, index, biography and page generation
 - `src/styles/site.css`: responsive visual system
+- `src/styles/mobile.css`: dedicated phone and tablet composition and vector arrows
+- `src/styles/the-point.css`: homepage proof strip and Get to the Point page
 - `src/scripts/site.js`: channel cuts, dialogs, archive views/search, random records, threads and exposure selection
 - `public/`: original reel/CV, optimized supplied photographs, film frames and self-hosted fonts
 
@@ -101,3 +106,13 @@ Phones and small tablets now have a dedicated composition in `src/styles/mobile.
 ## Arrow styling and desktop opening
 
 Mobile link arrows now use a custom SVG line shape in the current text color, avoiding platform-specific emoji rendering. The desktop homepage opens on the Waiting Game mural still; Another take switches to the interview. Mobile still opens on the interview and offers the mural as its alternate. Project thumbnails and the trailer poster retain their previously approved images.
+
+## September 29: Get to the Point
+
+The homepage now leads with “Five-time Emmy® winner · Netflix · Snap · WSJ” and a strategy sentence grounded in the ISTA school-funding campaign’s nearly 300,000 Facebook views. The existing campaign page retains the precise platform-specific results and source note.
+
+“Get to the Point,” available from the homepage and navigation, opens `/the-point/`. The first-person bio keeps the editing-room voice: “I make films. I build campaigns. I want both to do something.” The reel and contact use the existing accessible dialogs. On phones, the reel and contact buttons appear before the longer bio.
+
+The homepage and initial new page were checked in Chromium at 320, 390, 768, 1024, and 1440 pixels: no horizontal overflow, missing images, or JavaScript errors. Checks also covered the homepage shortcut, mobile navigation, reel sources, contact dialog, Escape and focus restoration. The desktop mural, mobile interview still, D.B. Cooper feature, vector arrows, and original GA4 configuration are retained. Production build: 13 pages plus 404, 44 archive records.
+
+The selected-project section was subsequently removed at Bryan’s request, along with its jump button, unused styles, and references in the homepage shortcut and metadata. The simplified page keeps the bio, reel, and contact.
