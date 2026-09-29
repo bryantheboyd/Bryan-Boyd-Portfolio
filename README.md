@@ -14,7 +14,7 @@ Open **http://localhost:4173**. Stop the preview with Ctrl+C. HTML pages use sit
 
 ## Take a look around
 
-- **Get to the point** opens the short version: a first-person bio, the reel, and contact. The homepage puts the Emmy/client proof line and a concrete ISTA campaign result above the opening film.
+- **Get to the point** opens the short version: a first-person bio, the reel, and contact. The homepage puts the Emmy/client proof line above the opening film.
 - **Change the channel** on the opening screen. Documentary, public life, and synthetic images each have a different image, visual treatment, and project link. **Another take** changes the still. Arrow keys also switch channels when the opening has focus.
 - **The room** is a wall of seven featured projects. **Play reel** starts the reel when you ask for it.
 - **Threads** connects projects through three questions and ideas. Each project carries a next-stop link when you enter through a thread.
@@ -34,7 +34,7 @@ Vercel settings remain: Framework **Other**, build command **npm run build**, ou
 
 ## Pages
 
-- `/` — credentials and strategy result, quick-route button, three-channel opening, thread entrances, project fragments and random record
+- `/` — credentials, three-channel opening, thread entrances, project fragments and random record
 - `/the-point/` — concise bio, reel, and contact
 - `/work/` — project wall and reel
 - `/threads/` — three curated routes through the work
@@ -109,9 +109,9 @@ Mobile link arrows now use a custom SVG line shape in the current text color, av
 
 ## September 29: Get to the Point
 
-The homepage now leads with “Five-time Emmy® winner · Netflix · Snap · WSJ” and a strategy sentence grounded in the ISTA school-funding campaign’s nearly 300,000 Facebook views. The existing campaign page retains the precise platform-specific results and source note.
+The homepage leads with “Five-time Emmy® winner · Netflix · Snap · WSJ · Google.” The strategy sentence was removed at Bryan’s request; the campaign page retains its platform-specific results and source note.
 
-“Get to the Point,” available from the homepage and navigation, opens `/the-point/`. The first-person bio keeps the editing-room voice: “I make films. I build campaigns. I want both to do something.” The reel and contact use the existing accessible dialogs. On phones, the reel and contact buttons appear before the longer bio.
+“Get to the Point,” a compact floating button in the lower-right corner, opens `/the-point/`. On the homepage it starts beside the proof line, then floats when that strip scrolls away. It stays available while scrolling and is omitted on the destination page. It is not part of the main navigation. The first-person bio keeps the editing-room voice: “I make films. I build campaigns. I want both to do something.” The reel and contact use the existing accessible dialogs. On phones, the reel and contact buttons appear before the longer bio.
 
 The homepage and initial new page were checked in Chromium at 320, 390, 768, 1024, and 1440 pixels: no horizontal overflow, missing images, or JavaScript errors. Checks also covered the homepage shortcut, mobile navigation, reel sources, contact dialog, Escape and focus restoration. The desktop mural, mobile interview still, D.B. Cooper feature, vector arrows, and original GA4 configuration are retained. Production build: 13 pages plus 404, 44 archive records.
 

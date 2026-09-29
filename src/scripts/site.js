@@ -14,6 +14,13 @@
   document.addEventListener('click',e=>{if(!header.contains(e.target))closeNavigation()});
   header.addEventListener('focusout',()=>{requestAnimationFrame(()=>{if(!header.contains(document.activeElement))closeNavigation()})});
   matchMedia('(max-width:900px)').addEventListener('change',()=>closeNavigation());
+  // Keep the homepage shortcut beside the proof line until that strip scrolls away.
+  const homeBrief=$('.home-brief'),pointShortcut=$('.point-shortcut');
+  if(homeBrief&&pointShortcut&&'IntersectionObserver' in window){
+    new IntersectionObserver(([entry])=>{
+      pointShortcut.classList.toggle('is-floating',!entry.isIntersecting&&entry.boundingClientRect.top<0);
+    },{rootMargin:'-64px 0px 0px 0px'}).observe(homeBrief);
+  }
   const records=JSON.parse($('#record-data').textContent),experience=JSON.parse($('#experience-data').textContent);
   const recordById=new Map(records.map(r=>[r.id,r]));
   // Select the smaller trailer before playback, retaining native video controls.
