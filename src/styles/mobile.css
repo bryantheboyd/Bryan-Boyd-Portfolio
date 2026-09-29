@@ -3,7 +3,7 @@
 
 @media screen and (max-width:900px){
   :root{--pad:clamp(18px,4.6vw,36px)}
-  html{scroll-padding-top:84px}
+  html{scroll-padding-top:calc(var(--header-height,97px) + 20px)}
   body{font-size:16px;line-height:1.65}
   main{min-width:0}
   main :is(section,header,article,figure,div){min-width:0}
@@ -23,7 +23,7 @@
   .site-header nav a[aria-current]{color:inherit;font-weight:bold}
   .site-header nav a[aria-current]::after{content:'';margin-left:auto;width:18px;height:18px;background:currentColor;-webkit-mask:var(--link-arrow-shape) center/contain no-repeat;mask:var(--link-arrow-shape) center/contain no-repeat}
   .site-header nav button{padding:12px 16px;margin-top:8px;background:var(--yellow);color:#111}
-  .js .site-header nav{display:none;position:absolute;left:0;right:0;top:100%;padding:8px var(--pad) 20px;background:inherit;color:inherit;border-bottom:1px solid currentColor;box-shadow:0 14px 20px #0002;max-height:calc(100dvh - 65px);overflow:auto;overscroll-behavior:contain}
+  .js .site-header nav{display:none;position:absolute;left:0;right:0;top:100%;padding:8px var(--pad) 20px;background:inherit;color:inherit;border-bottom:1px solid currentColor;box-shadow:0 14px 20px #0002;max-height:calc(100dvh - var(--header-height,97px));overflow:auto;overscroll-behavior:contain}
   .js .site-header[data-nav-open] nav{display:flex}
 
   /* The opening is a sequence of image, title, and controls, with no overlap. */
@@ -209,7 +209,7 @@
   .ista-opener>figure{width:100%;margin:0}
   .ista-opener figure>img{aspect-ratio:16/11;object-fit:cover;object-position:50% 40%}
   .ista-overprint{font-size:clamp(34px,10vw,64px);line-height:1.1;margin:16px 0 0;padding:0;background:none;width:auto}
-  .mobile-project-nav{display:flex;justify-content:space-between;gap:16px;position:sticky;top:65px;z-index:20;background:var(--yellow);color:#111;padding:0 var(--pad);border-top:1px solid #111;border-bottom:1px solid #111}
+  .mobile-project-nav{display:flex;justify-content:space-between;gap:16px;position:sticky;top:var(--header-height,97px);z-index:20;background:var(--yellow);color:#111;padding:0 var(--pad);border-top:1px solid #111;border-bottom:1px solid #111}
   .mobile-project-nav a{font-size:12px;min-width:44px;min-height:48px;display:flex;align-items:center}
   .project-ista :is(#photography,#publications,#campaigns,#classroom){scroll-margin-top:50px}
   .ista-brief .case-contents{display:none}

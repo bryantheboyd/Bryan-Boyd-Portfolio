@@ -14,7 +14,7 @@ Open **http://localhost:4173**. Stop the preview with Ctrl+C. HTML pages use sit
 
 ## Take a look around
 
-- **Get to the point** opens the short version: a first-person bio, the reel, and contact. The homepage puts the Emmy/client proof line above the opening film.
+- **Get to the point** opens the short version: a first-person bio, the reel, and contact. The header puts a compact Emmy/client proof line beneath “Film / Strategy / Other Things.”
 - **Change the channel** on the opening screen. Documentary, public life, and synthetic images each have a different image, visual treatment, and project link. **Another take** changes the still. Arrow keys also switch channels when the opening has focus.
 - **The room** is a wall of seven featured projects. **Play reel** starts the reel when you ask for it.
 - **Threads** connects projects through three questions and ideas. Each project carries a next-stop link when you enter through a thread.
@@ -62,7 +62,7 @@ All previous routes remain available. `404.html`, canonical and social metadata,
 - `scripts/build.mjs`: shared layout, homepage, index, biography and page generation
 - `src/styles/site.css`: responsive visual system
 - `src/styles/mobile.css`: dedicated phone and tablet composition and vector arrows
-- `src/styles/the-point.css`: homepage proof strip and Get to the Point page
+- `src/styles/the-point.css`: compact header credentials, floating shortcut, and Get to the Point page
 - `src/scripts/site.js`: channel cuts, dialogs, archive views/search, random records, threads and exposure selection
 - `public/`: original reel/CV, optimized supplied photographs, film frames and self-hosted fonts
 
@@ -109,9 +109,9 @@ Mobile link arrows now use a custom SVG line shape in the current text color, av
 
 ## September 29: Get to the Point
 
-The homepage leads with “Five-time Emmy® winner · Netflix · Snap · WSJ · Google.” The strategy sentence was removed at Bryan’s request; the campaign page retains its platform-specific results and source note.
+The header includes “Five-time Emmy® winner · Netflix · Snap · WSJ · Google” beneath “Film / Strategy / Other Things.” The separate homepage strip is removed so the film begins immediately below the header. The strategy sentence was removed at Bryan’s request; the campaign page retains its platform-specific results and source note.
 
-“Get to the Point,” a compact floating button in the lower-right corner, opens `/the-point/`. On the homepage it starts beside the proof line, then floats when that strip scrolls away. It stays available while scrolling and is omitted on the destination page. It is not part of the main navigation. The first-person bio keeps the editing-room voice: “I make films. I build campaigns. I want both to do something.” The reel and contact use the existing accessible dialogs. On phones, the reel and contact buttons appear before the longer bio.
+“Get to the Point,” a compact floating button in the lower-right corner, opens `/the-point/`. On the homepage it appears only as a floating shortcut after scrolling into the opening film. It stays available while scrolling and is omitted on the destination page. It is not part of the main navigation. The first-person bio keeps the editing-room voice: “I make films. I build campaigns. I want both to do something.” The reel and contact use the existing accessible dialogs. On phones, the reel and contact buttons appear before the longer bio.
 
 The homepage and initial new page were checked in Chromium at 320, 390, 768, 1024, and 1440 pixels: no horizontal overflow, missing images, or JavaScript errors. Checks also covered the homepage shortcut, mobile navigation, reel sources, contact dialog, Escape and focus restoration. The desktop mural, mobile interview still, D.B. Cooper feature, vector arrows, and original GA4 configuration are retained. Production build: 13 pages plus 404, 44 archive records.
 
