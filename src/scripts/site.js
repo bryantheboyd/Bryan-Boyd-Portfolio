@@ -58,8 +58,15 @@
   $$('[data-contact-open]').forEach(b=>b.addEventListener('click',()=>openDialog(contact,b)));
   $('[data-copy-email]').addEventListener('click',async()=>{
     const address=$('.email-address',contact).href.replace('mailto:','');
-    try{await navigator.clipboard.writeText(address);$('[data-copy-status]').textContent='Copied. Over to you.'}
+    try{await navigator.clipboard.writeText(address);$('[data-copy-status]').textContent='Email copied.'}
     catch{$('[data-copy-status]').textContent=address;const range=document.createRange();range.selectNodeContents($('.email-address',contact));getSelection().removeAllRanges();getSelection().addRange(range)}
+  });
+  const contactCopy=$('[data-contact-copy]');
+  if(contactCopy)contactCopy.addEventListener('click',async()=>{
+    const address=contactCopy.dataset.contactCopy;
+    const status=$('[data-contact-page-status]');
+    try { await navigator.clipboard.writeText(address);status.textContent='Copied.'; }
+    catch { status.textContent='Select the address above to copy it.'; }
   });
   // Channel changes are intentional cuts. Nothing auto-advances or makes sound.
   const channel=$('.channel');

@@ -124,5 +124,21 @@
     ],
     "image": "/images/reunited/reunited-01.jpg",
     "imageAlt": "Reunited episode imagery and series artwork, from Bryan Boyd’s directing reel"
+  },
+  {
+    "slug": "the-next-chapter",
+    "number": "08",
+    "title": "The Next Chapter",
+    "type": "Interactive history / short films",
+    "year": "2026",
+    "roles": "Video production / Digital experience",
+    "client": "Indiana State Teachers Association",
+    "description": "An interactive look through the history of the Indiana State Teachers Association, built around archives, film and stories from educators.",
+    "href": "/work/the-next-chapter/",
+    "creditTitles": [
+      "The Next Chapter"
+    ],
+    "image": "/images/ista/next-chapter-home.webp",
+    "imageAlt": "The Next Chapter interactive history website, showing an archival collage with title and chapter navigation"
   }
 ]
