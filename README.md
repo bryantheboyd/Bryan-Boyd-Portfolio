@@ -144,3 +144,7 @@ The homepage Gallery crop for “Who gets heard?” now preserves the speaker's 
 
 ## Revision 11
 The homepage Gallery card for **Who gets heard?** uses a dedicated landscape-cropped source image to keep the speaker's face visible on mobile. Styles/scripts now carry versioned URLs to reduce caching errors after deployment. See `REVISION-11.md`.
+
+## Revision 17
+
+Cinematography sections now appear in the order Golden Hour, The Sugarman, On the Record, Absolution, and Kyle Larson vs. The Double. Mobile typography and the Golden Hour press section have been revised; Absolution film frames and verified festival recognition are included. See `REVISION-17.md`.
