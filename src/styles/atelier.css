@@ -1123,3 +1123,216 @@ a:hover{text-underline-offset:4px}
   .camera-story h2{font-size:11.7vw}
   .camera-story.camera-absolution h2{font-size:10.4vw}
 }
+
+/* REVISION 18 — Cinematography: mobile editorial re-layout.
+   One consistent photographic rhythm; no desktop-scale headlines or offset stacks.
+   Scope every rule to this page so Work, Index, and other pages are unchanged. */
+@media (max-width:760px){
+  .camera-page{
+    --camera-mobile-gutter:clamp(20px,6vw,30px);
+  }
+  .camera-page .camera-opening{
+    padding:48px var(--camera-mobile-gutter) 62px;
+    border-bottom:1px solid var(--line2);
+  }
+  .camera-page .camera-opening>.label{font-size:10px;letter-spacing:.11em;line-height:1.5}
+  .camera-page .camera-opening h1{
+    font-size:clamp(39px,11.6vw,77px);
+    line-height:1;letter-spacing:-.064em;
+    margin:38px 0 40px;
+    max-width:100%;overflow-wrap:normal;word-break:normal;
+  }
+  .camera-page .camera-opening h1 span{
+    display:block;color:var(--accent);margin:5px 0 0;
+    padding:0 0 0 clamp(0px,3vw,15px);
+  }
+  .camera-page .camera-opening-bottom p{font-size:15px;line-height:1.7;max-width:33ch}
+
+  /* Opening film — identity first, information below, photograph after. */
+  .camera-page .golden-intro{
+    display:block;padding:72px var(--camera-mobile-gutter) 45px;
+    margin:0;min-width:0;
+  }
+  .camera-page .golden-intro .golden-intro-title>.label{
+    display:block;padding:0 0 0 13px;border-left:3px solid var(--accent);
+    font-size:10px;letter-spacing:.09em;line-height:1.65;
+    max-width:33ch;
+  }
+  .camera-page .golden-intro h2{
+    font-size:clamp(50px,13.2vw,88px);
+    letter-spacing:-.073em;line-height:.99;
+    margin:33px 0 0;
+    max-width:100%;overflow-wrap:normal;
+  }
+  .camera-page .golden-intro h2 em{
+    display:block;margin:5px 0 0;
+    line-height:1.02;letter-spacing:-.073em;
+  }
+  .camera-page .golden-intro-copy{
+    border-left:0;border-top:1px solid var(--line2);
+    margin:44px 0 0;padding:25px 0 0;
+    max-width:540px;
+  }
+  .camera-page .golden-intro-copy>.label{
+    display:block;font-size:10px;line-height:1.6;
+    letter-spacing:.095em;
+  }
+  .camera-page .golden-intro-copy p{
+    max-width:38ch;font-size:16px;line-height:1.75;
+    margin:17px 0 26px;letter-spacing:-.005em;
+  }
+  .camera-page .golden-intro-copy .arrow-link{
+    display:inline-flex;align-items:center;
+    min-height:42px;font-size:13px;
+  }
+  .camera-page .golden-wide{
+    margin:0;padding:0;
+  }
+  .camera-page .golden-wide img{width:100%;height:auto;display:block;object-fit:contain}
+  .camera-page .golden-wide figcaption{padding:12px var(--camera-mobile-gutter) 0}
+  .camera-page .golden-frame-pair{
+    display:grid;grid-template-columns:minmax(0,1fr);
+    gap:38px;padding:48px var(--camera-mobile-gutter) 56px;
+  }
+  .camera-page .golden-frame-pair figure,
+  .camera-page .golden-frame-pair figure:nth-child(2){
+    width:100%;max-width:100%;margin:0;
+    transform:none;
+  }
+  .camera-page .golden-frame-pair img{width:100%;height:auto;display:block}
+  .camera-page .golden-detail{
+    padding:0 var(--camera-mobile-gutter);
+    margin:0 0 88px;max-width:100%;width:100%;
+  }
+  .camera-page .golden-detail img{width:100%;height:auto;display:block}
+  .camera-page .golden-case figcaption{
+    margin:0;padding-top:12px;
+    font-size:10px;line-height:1.6;letter-spacing:.055em;
+    color:var(--muted);
+  }
+
+  /* Press as a readable index, rather than another oversized poster. */
+  .camera-page .golden-press{
+    display:block;padding:67px var(--camera-mobile-gutter) 90px;
+    border-top:1px solid var(--line2);
+  }
+  .camera-page .golden-press-intro{padding:0 0 29px}
+  .camera-page .golden-press-intro>.label{font-size:10px;letter-spacing:.12em}
+  .camera-page .golden-press-intro h3{
+    font-size:clamp(31px,8.3vw,55px);line-height:1.08;
+    letter-spacing:-.055em;
+    margin:22px 0 0;
+  }
+  .camera-page .golden-press-links>a{
+    display:grid;grid-template-columns:minmax(0,1fr) 20px;
+    gap:7px 12px;
+    padding:20px 0 24px;
+    min-width:0;
+  }
+  .camera-page .golden-press-links .label{
+    grid-column:1/-1;font-size:10px;line-height:1.5;
+    letter-spacing:.06em;
+  }
+  .camera-page .golden-press-headline{
+    font-size:16px;line-height:1.45;font-weight:650;
+    letter-spacing:-.012em;min-width:0;
+  }
+  .camera-page .golden-press-links .link-arrow{
+    align-self:center;justify-self:end;
+  }
+
+  /* Film sequence — repeated editorial structure with room to breathe. */
+  .camera-page .camera-story{
+    display:flex;flex-direction:column;align-items:stretch;
+    gap:0;
+    padding:76px var(--camera-mobile-gutter) 96px;
+    border-top:1px solid var(--line2);
+  }
+  .camera-page .camera-story-head{
+    position:static;display:block;width:100%;min-width:0;
+    margin:0 0 39px;
+  }
+  .camera-page .camera-story-head>.label{
+    display:block;padding:0 0 0 13px;
+    border-left:3px solid var(--accent);
+    font-size:10px;line-height:1.65;letter-spacing:.095em;
+  }
+  .camera-page .camera-story h2,
+  .camera-page .camera-story.camera-absolution h2,
+  .camera-page .camera-absolution .camera-story-head h2{
+    font-size:clamp(39px,10.5vw,68px);
+    line-height:1.03;letter-spacing:-.058em;
+    margin:29px 0 29px;overflow-wrap:normal;
+  }
+  .camera-page .camera-story-head>p{
+    font-size:16px;line-height:1.7;
+    margin:0 0 21px;max-width:41ch;
+  }
+  .camera-page .camera-story .camera-feature,
+  .camera-page .camera-story .camera-offset{
+    grid-column:auto;grid-row:auto;align-self:stretch;
+    width:100%;max-width:100%;margin:0;
+    transform:none;
+  }
+  .camera-page .camera-story .camera-feature{margin-top:0}
+  .camera-page .camera-story .camera-offset{margin-top:38px}
+  .camera-page .camera-story figure img{width:100%;height:auto;display:block}
+  .camera-page .camera-award{
+    margin:27px 0 21px;padding:18px 0;
+    font-size:14px!important;line-height:1.5;
+  }
+  .camera-page .camera-award span{font-size:10px;line-height:1.65}
+  .camera-page .camera-source-links{margin:24px 0 0;gap:8px}
+  .camera-page .camera-source-links .arrow-link,
+  .camera-page .camera-story .arrow-link{font-size:13px;min-height:44px}
+  .camera-page .camera-absolution-details{
+    display:grid;grid-template-columns:minmax(0,1fr);
+    width:100%;gap:38px;margin-top:38px;
+  }
+  .camera-page .camera-absolution-details figure,
+  .camera-page .camera-absolution-details figure:nth-child(2){
+    display:block;width:100%;margin:0;max-width:100%;
+    justify-self:stretch;transform:none;
+  }
+  .camera-page .camera-festival-note{font-size:14px!important;line-height:1.7}
+  .camera-page .camera-page figcaption,
+  .camera-page figcaption{font-size:10px;line-height:1.55;letter-spacing:.045em;margin-top:11px}
+
+  /* Larson / camera systems follow the same spacing and title scale. */
+  .camera-page .camera-lead{
+    display:flex;flex-direction:column;align-items:stretch;
+    gap:34px;padding:76px var(--camera-mobile-gutter) 72px;
+  }
+  .camera-page .camera-lead>div{order:-1}
+  .camera-page .camera-lead h2{
+    font-size:clamp(36px,9.8vw,64px);line-height:1.05;
+    margin:29px 0 27px;letter-spacing:-.057em;
+  }
+  .camera-page .camera-lead p{font-size:16px;line-height:1.7}
+  .camera-page .camera-lead figure{transform:none;margin:0}
+  .camera-page .camera-pair{
+    display:grid;grid-template-columns:minmax(0,1fr);gap:36px;
+    padding:20px var(--camera-mobile-gutter) 86px;
+  }
+  .camera-page .camera-pair figure,
+  .camera-page .camera-pair .camera-race{
+    width:100%;margin:0;transform:none;
+  }
+  .camera-page .camera-systems{
+    display:grid;grid-template-columns:minmax(0,1fr);gap:30px;
+    padding:78px var(--camera-mobile-gutter) 96px;
+  }
+  .camera-page .camera-systems h2{
+    font-size:clamp(42px,11.2vw,68px);line-height:1.04;
+    letter-spacing:-.06em;margin:28px 0 0;
+  }
+  .camera-page .camera-systems p{font-size:16px;line-height:1.7}
+  .camera-page .camera-systems .camera-system-list{gap:9px;margin:26px 0 28px}
+}
+@media(max-width:350px){
+  .camera-page .camera-opening h1{font-size:11.4vw}
+  .camera-page .golden-intro h2{font-size:12.7vw}
+  .camera-page .camera-story h2,
+  .camera-page .camera-story.camera-absolution h2,
+  .camera-page .camera-absolution .camera-story-head h2{font-size:10vw}
+}
