@@ -998,13 +998,11 @@ a:hover{text-underline-offset:4px}
 .golden-frame-pair{padding:clamp(25px,4vw,70px) var(--pad) clamp(50px,7vw,110px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,3vw,56px)}
 .golden-frame-pair img{display:block;width:100%;height:auto;object-fit:contain}
 .golden-frame-pair figure:nth-child(2){margin-top:clamp(35px,6vw,110px)}
+.golden-detail{margin:0 0 clamp(42px,7vw,105px);padding:0 var(--pad) 0 clamp(35px,15vw,240px);max-width:1400px}
+.golden-detail img{display:block;width:100%;height:auto;object-fit:contain}
 .golden-press{border-top:1px solid var(--line2);padding:clamp(50px,6vw,96px) var(--pad) clamp(70px,8vw,130px);display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);column-gap:7%;row-gap:40px}
 .golden-press-intro h3{font:750 clamp(38px,5vw,75px)/1 var(--display);letter-spacing:-.065em;margin:24px 0 20px;overflow-wrap:normal}
-.golden-press-intro p{max-width:45ch;font:400 15px/1.8 var(--text);margin:0 0 18px}
-.golden-press-content{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:clamp(15px,2.5vw,40px);align-items:start;min-width:0}
-.golden-press-shot{display:block;border:1px solid var(--line2);background:white;padding:8px;transform:rotate(-2deg);transition:transform .2s ease}
-.golden-press-shot:hover{transform:rotate(0)}
-.golden-press-shot img{display:block;width:100%;height:auto;object-fit:contain}
+.golden-press-content{min-width:0}
 .golden-press-links{min-width:0;border-top:1px solid var(--line2)}
 .golden-press-links>a{display:grid;grid-template-columns:minmax(0,1fr) 25px;column-gap:12px;row-gap:8px;padding:21px 0;border-bottom:1px solid var(--line2);color:var(--ink);text-decoration:none}
 .golden-press-links .label{grid-column:1/-1;color:var(--accent);font-size:10px;letter-spacing:.09em}
@@ -1023,14 +1021,11 @@ a:hover{text-underline-offset:4px}
  .golden-intro h2{font-size:clamp(53px,14vw,82px)}
  .golden-frame-pair{grid-template-columns:1fr}
  .golden-frame-pair figure:nth-child(2){margin:0}
- .golden-press-content{grid-template-columns:1fr}
- .golden-press-shot{width:min(74%,340px);margin:0 auto 10px}
  .work-camera-images{grid-template-columns:1fr 1fr;gap:18px 12px}
  .work-camera-images figure:first-child{grid-column:1/-1}
  .work-camera-images figure:last-child{grid-column:1/-1;width:72%;justify-self:end}
  .work-camera-images figcaption{font-size:8px}
 }
-@media(prefers-reduced-motion:reduce){.golden-press-shot{transition:none}}
 
 /* REVISION 15 / clear mobile rhythm for ISTA strategy; remove decorative camera star. */
 .ista-strategy-heading h2{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(7px,.8vw,13px);line-height:1.14}
