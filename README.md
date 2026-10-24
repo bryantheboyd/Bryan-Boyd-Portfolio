@@ -1,3 +1,5 @@
+> **Revision 09:** Link and directional arrows are replaced by the supplied side-eye symbol. See `REVISION-09.md`.
+
 ## CURRENT HANDOFF — REVISION 07 (OCTOBER 23, 2026)
 
 See `REVISION-07.md` for the Work-page formatting pass and quieter placement of Camera Work. Camera is no longer in the primary navigation, About shortcuts, or footer; it is introduced only within Work, where the detailed `/cinematography/` page remains available. Index image assignments are unchanged and image matching is paused.
@@ -127,3 +129,7 @@ The selected-project section was subsequently removed at Bryan’s request, alon
 ## Revision 06 — camera work and image-credit mapping
 
 New page: `/cinematography/`. Matched credit photographs: `src/data/index-images.json`; inventory: `INDEX-IMAGE-CATALOG.csv`. See `REVISION-06.md` for the verified credit assignments and simple repeatable image-ingestion process. Add future pictures under `public/images/index/` and update the JSON; the Index thumbnails, preview and expanded galleries are generated automatically. Do not guess at uncertain matches.
+
+## Latest revision
+
+See `REVISION-08.md` for navigation simplification, new directional link marks, corrected Gallery portrait crop, Work page Mellencamp photo, and mobile hero/reel refinements. All changes are in editable source files under `src/` and `public/icons/`, and included in the built `dist/` site.

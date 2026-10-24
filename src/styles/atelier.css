@@ -764,3 +764,90 @@ a:hover{text-underline-offset:4px}
  .work-camera-images img,.work-camera-images figure:first-child img{height:auto;aspect-ratio:4/3;object-fit:cover}
  .work-camera-copy h2{font-size:clamp(38px,6vw,55px)}
 }
+
+/* REVISION 09 — exact supplied side-eye as the universal link/navigation mark.
+   CurrentColor is inherited via an alpha mask; no inline SVG, fixed palette, or emoji. */
+:root{--link-arrow-shape:url('/icons/side-eye.svg')}
+.link-arrow,.wordmark-mark{
+  display:inline-block!important;position:relative;flex:none;
+  width:24px;height:24px;font-size:0!important;line-height:0!important;
+  vertical-align:-.30em;background:none!important;
+  -webkit-mask:none!important;mask:none!important;
+  transition:transform .18s ease;
+}
+.link-arrow::before,.wordmark-mark::before{
+  content:'';display:block;width:100%;height:100%;background:currentColor;
+  -webkit-mask:var(--link-arrow-shape) center/contain no-repeat!important;
+  mask:var(--link-arrow-shape) center/contain no-repeat!important;
+}
+.link-arrow[data-direction=left]::before{transform:scaleX(-1)}
+/* Text supplies vertical/back direction; the eye stays upright and readable. */
+.link-arrow[data-direction=up]::before,.link-arrow[data-direction=down]::before{transform:none}
+@media(hover:hover){a:hover>.link-arrow,button:hover>.link-arrow,.thread-door:hover>.door-arrow{transform:translateX(3px)}
+@media(prefers-reduced-motion:reduce){.link-arrow,.wordmark-mark{transition:none!important}}
+/* This mark appears at human sizes on real links, with a few large graphic usages. */
+.wordmark-mark{width:24px;height:24px;margin-left:10px}
+.change-channel>.link-arrow{width:24px;height:24px;vertical-align:middle}
+.site-header nav a[aria-current]::after{
+  -webkit-mask:var(--link-arrow-shape) center/contain no-repeat;
+  mask:var(--link-arrow-shape) center/contain no-repeat;
+}
+/* Previously typographic arrows, now pieces of the same visual vocabulary. */
+.room-intro h1>.link-arrow,.threads-intro h1>.link-arrow{width:.42em;height:.42em;vertical-align:top;margin-left:.09em}
+.chance-symbol.link-arrow{width:clamp(90px,16vw,240px);height:clamp(90px,16vw,240px)}
+.history-archive-graphic .link-arrow{width:.42em;height:.42em;vertical-align:middle}
+.loose-note>.link-arrow{width:32px;height:32px}
+.mobile-gallery-hint .link-arrow{width:18px;height:18px;vertical-align:-.25em}
+.chapter-site-preview>span{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chapter-site-preview>span>.link-arrow{color:inherit;width:19px;height:19px}
+.lab-side-note>.link-arrow{width:18px;height:18px;vertical-align:-.25em}
+.random-again>.link-arrow{width:19px;height:19px;vertical-align:-.25em;margin-left:6px}
+.contact-email>.link-arrow{width:.78em;height:.78em;vertical-align:-.12em}
+@media(max-width:700px){
+  .link-arrow,.wordmark-mark{width:21px;height:21px}
+  .chance-symbol.link-arrow{width:92px;height:92px}
+  .room-intro h1>.link-arrow,.threads-intro h1>.link-arrow{width:.4em;height:.4em}
+}
+/* Gallery portraits: the subject's full head and microphone stay in frame. */
+:root[data-design-layout=gallery] .ways-in .thread-door.door-1 .door-image img{
+  object-fit:cover;object-position:50% 9%;
+}
+/* Keep the primary reel available on the homepage and Work, but not in navigation. */
+.home-page .hero-reel{
+  display:inline-flex;align-items:center;justify-content:flex-start;
+  gap:13px;min-width:0;min-height:58px;width:auto;
+  padding:10px 14px;box-shadow:4px 4px 0 var(--accent);
+  font:750 16px/1.2 var(--text);letter-spacing:.01em;
+  flex-wrap:nowrap;white-space:nowrap;
+}
+.home-page .hero-reel:hover{box-shadow:6px 6px 0 var(--accent)}
+.home-page .hero-reel .hero-reel-play{
+  display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;
+  padding-left:2px;border:1.5px solid currentColor;border-radius:50%;
+  font:12px/1 Arial,sans-serif;
+}
+.home-page .hero-reel .hero-reel-label{font:inherit;letter-spacing:inherit;display:block;flex:none}
+.home-page .hero-reel .hero-reel-time{
+  display:block;margin-left:12px;padding-left:12px;border-left:1px solid currentColor;
+  font:650 11px/1.1 var(--text);letter-spacing:.07em;opacity:.7;
+}
+@media(max-width:700px){
+  .home-page .hero-reel{
+    width:100%;max-width:none;min-width:0;min-height:54px;
+    padding:11px 14px;box-shadow:3px 3px 0 var(--accent);
+    gap:12px;font:750 15px/1 var(--text);letter-spacing:.03em;
+  }
+  .home-page .hero-reel .hero-reel-play{width:30px;height:30px;flex-basis:30px;font-size:11px}
+  .home-page .hero-reel .hero-reel-time{margin-left:auto;padding-left:11px;font-size:10px}
+  .home-page .channel-actions{align-items:stretch}
+}
+@media(max-width:360px){
+ .home-page .hero-reel{font-size:13px;padding-inline:11px;gap:10px}
+ .home-page .hero-reel .hero-reel-time{padding-left:8px}
+}
+/* Last typography pass: avoid long headings overflowing the Gallery cards. */
+@media(min-width:901px){
+ :root[data-design-layout=gallery] .ways-in .thread-door h3{font-size:clamp(28px,2.9vw,43px);line-height:1.05;overflow-wrap:break-word}
+}
+/* Work: show the chosen cigarette/interview wide frame, not a forced panoramic crop. */
+.work-camera-images figure:first-child img{height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center}

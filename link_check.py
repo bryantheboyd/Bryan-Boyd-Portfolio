@@ -1,7 +1,7 @@
 from pathlib import Path
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse,unquote
-root=Path('/mnt/data/boyd_rebuild/dist')
+root=Path(__file__).resolve().parent/'dist'
 errors=[];edges=[]
 for file in root.glob('**/*.html'):
  soup=BeautifulSoup(file.read_text(),'html.parser')
@@ -13,8 +13,8 @@ for file in root.glob('**/*.html'):
    if target.is_dir():target=target/'index.html'
    if not target.exists():errors.append(f'{file.relative_to(root)} [{el.name}:{attr}] -> {s}')
    else:edges.append((file,s))
- print('Pages',len(list(root.glob('**/*.html'))),'internal path links/assets',len(edges),'broken',len(errors))
- for e in errors[:30]:print('BROKEN',e)
+print('Pages',len(list(root.glob('**/*.html'))),'internal path links/assets',len(edges),'broken',len(errors))
+for e in errors[:30]:print('BROKEN',e)
  # video playback expected files
 for f in ['red-scare','collective-bargaining','highland','new-deal','know-your-ref']:
  assert (root/'video/ista'/f'{f}.mp4').exists()

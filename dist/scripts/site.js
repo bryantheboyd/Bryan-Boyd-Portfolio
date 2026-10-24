@@ -85,7 +85,7 @@
       $('[data-channel-label]').textContent=`CH. ${c.number} / ${c.label.toUpperCase()}`;
       $('[data-channel-title]').innerHTML=c.display;
       $('[data-channel-description]').textContent=c.description;
-      const a=$('[data-channel-link]');a.href=c.href;a.replaceChildren(document.createTextNode(c.link));const arrow=document.createElement('span');arrow.className='link-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';a.append(arrow);
+      const a=$('[data-channel-link]');a.href=c.href;a.replaceChildren(document.createTextNode(c.link));const arrow=document.createElement('span');arrow.className='link-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='';a.append(arrow);
       $('[data-frame-caption]').textContent=f.caption;
       presets.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
       $('[data-channel-status]').textContent=`Channel ${c.number}: ${c.title}. ${f.caption}.`;
@@ -116,7 +116,7 @@
       const next=$('[data-thread-next]');
       if(position+1<thread.stops.length){const target=new URL(thread.stops[position+1].href,location.origin);target.searchParams.set('thread',thread.id);target.searchParams.set('stop',String(position+2));next.href=target.pathname+target.search+target.hash;next.textContent=`Next: ${thread.stops[position+1].title}`}
       else{next.href='/threads/';next.textContent='Thread complete. Pick another'}
-      const arrow=document.createElement('span');arrow.className='link-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';next.append(' ',arrow);
+      const arrow=document.createElement('span');arrow.className='link-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='';next.append(' ',arrow);
     }
   }
   const rows=$$('[data-credit-row]');
