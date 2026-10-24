@@ -1,3 +1,7 @@
+# CURRENT HANDOFF — REVISION 19 (OCTOBER 24, 2026)
+
+**Important mobile fix:** A missing closing brace put much of `src/styles/atelier.css` inside a hover-only media query. This has been fixed and the entire site has been rebuilt. ISTA's strategy section and Cinematography now receive their intended responsive styles on touch devices. Tablet layouts, section-index touch targets, and a few small-screen titles are also improved. See `REVISION-19.md` for the 384-state responsive audit, interaction checks, asset verification, and deployment notes. Both editable source and ready-to-host `dist/` are included.
+
 # CURRENT HANDOFF — REVISION 12 (OCTOBER 24, 2026)
 
 Matched the two new batches of project stills into the Index, preserving existing credit text and image galleries. Details and matching audit are in `REVISION-12.md`, `INDEX-IMAGE-CATALOG.csv`, and `INDEX-CREDIT-COVERAGE.csv`. The site includes the revised `dist/` build.

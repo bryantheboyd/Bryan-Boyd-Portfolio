@@ -783,7 +783,7 @@ a:hover{text-underline-offset:4px}
 .link-arrow[data-direction=left]::before{transform:scaleX(-1)}
 /* Text supplies vertical/back direction; the eye stays upright and readable. */
 .link-arrow[data-direction=up]::before,.link-arrow[data-direction=down]::before{transform:none}
-@media(hover:hover){a:hover>.link-arrow,button:hover>.link-arrow,.thread-door:hover>.door-arrow{transform:translateX(3px)}
+@media(hover:hover){a:hover>.link-arrow,button:hover>.link-arrow,.thread-door:hover>.door-arrow{transform:translateX(3px)}}
 @media(prefers-reduced-motion:reduce){.link-arrow,.wordmark-mark{transition:none!important}}
 /* This mark appears at human sizes on real links, with a few large graphic usages. */
 .wordmark-mark{width:24px;height:24px;margin-left:10px}
@@ -1127,7 +1127,7 @@ a:hover{text-underline-offset:4px}
 /* REVISION 18 — Cinematography: mobile editorial re-layout.
    One consistent photographic rhythm; no desktop-scale headlines or offset stacks.
    Scope every rule to this page so Work, Index, and other pages are unchanged. */
-@media (max-width:760px){
+@media (max-width:1023px){
   .camera-page{
     --camera-mobile-gutter:clamp(20px,6vw,30px);
   }
@@ -1335,4 +1335,46 @@ a:hover{text-underline-offset:4px}
   .camera-page .camera-story h2,
   .camera-page .camera-story.camera-absolution h2,
   .camera-page .camera-absolution .camera-story-head h2{font-size:10vw}
+}
+
+/* REVISION 19 — touch-first finishing pass. The missing hover-query brace above
+   previously hid much of this stylesheet from touch devices. */
+@media (max-width:900px){
+  /* Keep the ISTA table of contents swipeable without tiny touch targets. */
+  .project-ista .ista-section-index{
+    gap:clamp(16px,5vw,30px);scroll-snap-type:x proximity;
+    overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+  }
+  .project-ista .ista-section-index a{
+    display:inline-flex;align-items:center;flex:none;min-height:44px;
+    padding:10px 0;scroll-snap-align:start;white-space:nowrap;
+  }
+  /* Gallery cards may be narrow on 600–900px tablets. */
+  :root[data-design-layout=gallery] .ways-in{overflow-x:clip}
+  :root[data-design-layout=gallery] .thread-door{
+    grid-template-columns:minmax(0,1fr) minmax(56px,76px) 18px;
+    column-gap:10px;
+  }
+  :root[data-design-layout=gallery] .thread-door h3{
+    font-size:clamp(25px,3.3vw,42px);overflow-wrap:break-word;
+  }
+}
+@media (max-width:400px){
+  .recognition-record h2{font-size:clamp(38px,13.1vw,53px)}
+  .wsj-opener h1,
+  :root[data-design-layout=gallery] .wsj-opener h1{
+    font-size:clamp(60px,20.4vw,82px);
+  }
+  .lab-select>button{font-size:9px;letter-spacing:-.045em}
+}
+@media (min-width:901px){
+  .reunited-opener h1{font-size:19.2vw}
+}
+@media (min-width:901px) and (max-width:1150px){
+  :root[data-design-layout=gallery] .thread-door{
+    grid-template-columns:minmax(0,1fr) 63px 16px;column-gap:9px;
+  }
+  :root[data-design-layout=gallery] .thread-door h3{
+    font-size:clamp(21px,2.55vw,30px);overflow-wrap:break-word;
+  }
 }
