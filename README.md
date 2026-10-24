@@ -1,3 +1,7 @@
+# CURRENT HANDOFF — REVISION 12 (OCTOBER 24, 2026)
+
+Matched the two new batches of project stills into the Index, preserving existing credit text and image galleries. Details and matching audit are in `REVISION-12.md`, `INDEX-IMAGE-CATALOG.csv`, and `INDEX-CREDIT-COVERAGE.csv`. The site includes the revised `dist/` build.
+
 > **Revision 09:** Link and directional arrows are replaced by the supplied side-eye symbol. See `REVISION-09.md`.
 
 ## CURRENT HANDOFF — REVISION 07 (OCTOBER 23, 2026)
@@ -137,3 +141,6 @@ See `REVISION-08.md` for navigation simplification, new directional link marks, 
 ## Revision 10 (2026-10-24)
 
 The homepage Gallery crop for “Who gets heard?” now preserves the speaker's full head and microphone at desktop and mobile widths. The mobile Play Reel control uses a vector play icon and a clean, responsive editorial treatment. See `REVISION-10.md`.
+
+## Revision 11
+The homepage Gallery card for **Who gets heard?** uses a dedicated landscape-cropped source image to keep the speaker's face visible on mobile. Styles/scripts now carry versioned URLs to reduce caching errors after deployment. See `REVISION-11.md`.

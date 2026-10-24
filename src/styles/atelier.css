@@ -938,3 +938,21 @@ a:hover{text-underline-offset:4px}
   .home-page .channel-actions .hero-reel {gap:9px!important;padding-inline:10px!important}
   .home-page .hero-reel .hero-reel-time {padding-left:8px!important}
 }
+
+/* REVISION 11 / dedicated, correctly framed landscape image for this card.
+   No portrait crop is used in Gallery mode. */
+:root[data-design-layout="gallery"] .ways-in .thread-door.door-1 .door-image {
+  aspect-ratio: 1365 / 1000 !important;
+  height:auto !important;
+  max-height:none !important;
+}
+:root[data-design-layout="gallery"] .ways-in .thread-door.door-1 .door-image img {
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center top !important;
+}
+
+/* V12: show imported production frames uncropped in the Index, including portrait graphics. */
+.index-layout[data-index-layout="sheet"] .sheet-visual img[src^="/images/index/"],
+.index-preview .preview-media img[src^="/images/index/"] { object-fit: contain; background:#111; }
