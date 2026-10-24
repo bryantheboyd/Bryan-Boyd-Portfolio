@@ -851,3 +851,90 @@ a:hover{text-underline-offset:4px}
 }
 /* Work: show the chosen cigarette/interview wide frame, not a forced panoramic crop. */
 .work-camera-images figure:first-child img{height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center}
+
+/* REVISION 10 / homepage gallery: respect portrait orientation.
+   The photo is portrait. A panoramic card will always amputate the subject. */
+:root[data-design-layout="gallery"] .ways-in .thread-door.door-1 .door-image {
+  width:100%!important;
+  aspect-ratio:1 / 1!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+:root[data-design-layout="gallery"] .ways-in .thread-door.door-1 .door-image img {
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:50% 0%!important;
+}
+/* REVISION 10 / reel: use a real vector play shape, never an OS font glyph. */
+.hero-reel-play .reel-play-symbol {display:block;width:13px;height:13px;flex:none}
+@media(max-width:700px){
+  /* Quieter, deliberately typeset, and unmistakably interactive. */
+  .home-page .channel-actions .hero-reel {
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:13px!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    min-height:58px!important;
+    padding:11px 15px!important;
+    margin:0!important;
+    background:var(--paper)!important;
+    color:var(--ink)!important;
+    border:1px solid var(--ink)!important;
+    border-left:4px solid var(--accent)!important;
+    box-shadow:none!important;
+    border-radius:0!important;
+    transform:none!important;
+    text-align:left!important;
+    line-height:1.2!important;
+    white-space:nowrap!important;
+  }
+  .home-page .hero-reel .hero-reel-play {
+    display:grid!important;
+    place-items:center!important;
+    flex:0 0 31px!important;
+    width:31px!important;
+    height:31px!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:50%!important;
+    background:var(--ink)!important;
+    color:var(--paper)!important;
+    font-size:0!important;
+  }
+  .home-page .hero-reel .hero-reel-label {
+    display:block!important;
+    flex:0 1 auto!important;
+    min-width:0!important;
+    font-family:var(--text)!important;
+    font-size:12px!important;
+    font-weight:800!important;
+    letter-spacing:.12em!important;
+    line-height:1.2!important;
+  }
+  .home-page .hero-reel .hero-reel-time {
+    display:block!important;
+    margin-left:auto!important;
+    padding-left:12px!important;
+    border-left:1px solid var(--line2)!important;
+    font-family:var(--text)!important;
+    font-size:11px!important;
+    font-weight:600!important;
+    letter-spacing:.05em!important;
+    line-height:1.2!important;
+    color:var(--muted)!important;
+    opacity:1!important;
+  }
+  .home-page .hero-reel:hover {background:var(--card)!important;box-shadow:none!important}
+}
+@media(max-width:360px){
+  .home-page .channel-actions .hero-reel {gap:9px!important;padding-inline:10px!important}
+  .home-page .hero-reel .hero-reel-time {padding-left:8px!important}
+}

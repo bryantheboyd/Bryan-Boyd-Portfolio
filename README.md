@@ -133,3 +133,7 @@ New page: `/cinematography/`. Matched credit photographs: `src/data/index-images
 ## Latest revision
 
 See `REVISION-08.md` for navigation simplification, new directional link marks, corrected Gallery portrait crop, Work page Mellencamp photo, and mobile hero/reel refinements. All changes are in editable source files under `src/` and `public/icons/`, and included in the built `dist/` site.
+
+## Revision 10 (2026-10-24)
+
+The homepage Gallery crop for “Who gets heard?” now preserves the speaker's full head and microphone at desktop and mobile widths. The mobile Play Reel control uses a vector play icon and a clean, responsive editorial treatment. See `REVISION-10.md`.
