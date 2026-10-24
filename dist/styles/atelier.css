@@ -956,3 +956,23 @@ a:hover{text-underline-offset:4px}
 /* V12: show imported production frames uncropped in the Index, including portrait graphics. */
 .index-layout[data-index-layout="sheet"] .sheet-visual img[src^="/images/index/"],
 .index-preview .preview-media img[src^="/images/index/"] { object-fit: contain; background:#111; }
+
+
+/* ISTA strategy: explain the decisions and measurement behind the creative. */
+.ista-context{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(30px,5vw,100px);align-items:start;scroll-margin-top:90px}
+.ista-strategy-heading,.ista-strategy-body{position:relative;z-index:1;min-width:0}
+.ista-strategy-heading h2{font-size:clamp(44px,5.3vw,90px);line-height:1.05;letter-spacing:-.07em;margin:35px 0 0;font-weight:750}
+.ista-strategy-heading h2 em{display:inline-block;font:italic 500 .87em/1.12 var(--serif);letter-spacing:-.05em;color:var(--accent)}
+.ista-strategy-body>p{font-size:clamp(20px,2.3vw,31px);line-height:1.48;letter-spacing:-.025em;max-width:800px}
+.ista-strategy-results{border-top:1px solid var(--line2);margin-top:clamp(30px,4vw,64px);padding-top:23px}
+.ista-strategy-results h3{font:700 clamp(18px,1.6vw,24px)/1.3 var(--text);letter-spacing:-.02em;margin:0 0 13px}
+.ista-strategy-results p{color:var(--muted);font-size:clamp(14px,1.05vw,16px);line-height:1.7;max-width:670px;margin:0 0 19px}
+.ista-strategy-results .arrow-link{font-size:12px;display:inline-flex;align-items:center;gap:8px}
+@media(max-width:700px){
+ .ista-context{display:block;scroll-margin-top:72px}
+ .ista-strategy-heading h2{font-size:clamp(43px,11vw,65px);margin:25px 0 25px;line-height:1.05}
+ .ista-strategy-body>p{font-size:clamp(19px,5vw,23px);line-height:1.5;margin:0}
+ .ista-strategy-results{margin-top:28px;padding-top:20px}
+ .ista-strategy-results h3{font-size:19px}
+ .ista-strategy-results p{font-size:14px;line-height:1.65}
+}
