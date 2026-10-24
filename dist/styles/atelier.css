@@ -668,7 +668,7 @@ a:hover{text-underline-offset:4px}
 .camera-opening h1 span{display:block;margin-left:9vw;color:var(--accent)}
 .camera-opening-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
 .camera-opening-bottom p{font:normal clamp(13px,1.2vw,19px)/1.7 var(--text);margin:0}
-.camera-asterisk{font-size:clamp(90px,16vw,230px);color:var(--accent2);line-height:.6;transform:rotate(-17deg)}
+
 .camera-lead{padding-top:6vw;padding-bottom:6vw;display:grid;grid-template-columns:1.3fr .7fr;gap:5vw;align-items:center;border-bottom:1px solid var(--line2)}
 .camera-lead figure{margin:0;transform:rotate(-1.5deg)}
 .camera-lead figure img{width:100%;height:auto;display:block}
@@ -695,7 +695,7 @@ a:hover{text-underline-offset:4px}
 .camera-systems .arrow-link{margin-right:24px}
 .credit-gallery{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:12px;margin:20px 0}
 .credit-gallery figure{margin:0}.credit-gallery img{width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;background:var(--card);display:block}.credit-gallery figcaption{font-size:9px;line-height:1.5}
-@media(max-width:760px){.camera-opening{padding-top:30px;padding-bottom:35px}.camera-opening h1{font-size:17.5vw;line-height:.9;margin:48px 0 35px;max-width:100%}.camera-opening h1 span{margin-left:0}.camera-asterisk{font-size:75px}.camera-lead,.camera-pair,.camera-story,.camera-systems{grid-template-columns:1fr;gap:35px;padding-top:40px;padding-bottom:45px}.camera-story-head{position:static;grid-column:1;grid-row:auto}.camera-story .camera-feature,.camera-story .camera-offset{grid-column:1;grid-row:auto}.camera-story .camera-offset{width:80%}.camera-pair .camera-race{margin-top:0}.camera-lead h2,.camera-story h2,.camera-systems h2{font-size:13vw}.camera-page figcaption{font-size:8px}.credit-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.camera-opening{padding-top:30px;padding-bottom:35px}.camera-opening h1{font-size:17.5vw;line-height:.9;margin:48px 0 35px;max-width:100%}.camera-opening h1 span{margin-left:0}.camera-lead,.camera-pair,.camera-story,.camera-systems{grid-template-columns:1fr;gap:35px;padding-top:40px;padding-bottom:45px}.camera-story-head{position:static;grid-column:1;grid-row:auto}.camera-story .camera-feature,.camera-story .camera-offset{grid-column:1;grid-row:auto}.camera-story .camera-offset{width:80%}.camera-pair .camera-race{margin-top:0}.camera-lead h2,.camera-story h2,.camera-systems h2{font-size:13vw}.camera-page figcaption{font-size:8px}.credit-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Credit contact sheet hover: preserve text contrast in every Display palette. */
 .index-row:hover>summary{background:var(--card);color:var(--ink)}
 .index-row[open]>summary{color:var(--ink)}
@@ -975,4 +975,75 @@ a:hover{text-underline-offset:4px}
  .ista-strategy-results{margin-top:28px;padding-top:20px}
  .ista-strategy-results h3{font-size:19px}
  .ista-strategy-results p{font-size:14px;line-height:1.65}
+}
+
+
+/* REVISION 14 / Cinematography: Golden Hour + selected press */
+/* Keep camera work secondary in the global hierarchy, but properly art-direct this film within that page. */
+.work-camera-images{grid-template-columns:repeat(3,minmax(0,1fr));gap:21px 15px}
+.work-camera-images figure:first-child{grid-column:1/-1}
+.work-camera-images img{object-fit:contain;background:var(--card);aspect-ratio:16/10}
+.work-camera-images figure:first-child img{aspect-ratio:16/9;object-fit:contain;object-position:center}
+.work-camera-images .work-camera-golden img{aspect-ratio:8/5;object-fit:contain;object-position:center;background:#222020}
+.golden-case{background:var(--paper);color:var(--ink);border-top:1px solid var(--line2)}
+.golden-case figure{margin:0;min-width:0}
+.golden-intro{padding:clamp(40px,6vw,100px) var(--pad) clamp(35px,4vw,60px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:6%;align-items:end}
+.golden-intro h2{font:750 clamp(62px,10vw,172px)/.87 var(--display);letter-spacing:-.068em;margin:20px 0 0}
+.golden-intro h2 em{font-style:normal;color:var(--accent)}
+.golden-intro-copy p{font:400 clamp(15px,1.3vw,19px)/1.7 var(--text);max-width:40ch;margin:17px 0 27px}
+.golden-intro .arrow-link{color:var(--accent)}
+.golden-wide{margin:0;padding:0 var(--pad)}
+.golden-wide img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
+.golden-case figcaption{font:600 9px/1.6 var(--text);letter-spacing:.11em;color:var(--muted);padding-top:9px}
+.golden-frame-pair{padding:clamp(25px,4vw,70px) var(--pad) clamp(50px,7vw,110px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,3vw,56px)}
+.golden-frame-pair img{display:block;width:100%;height:auto;object-fit:contain}
+.golden-frame-pair figure:nth-child(2){margin-top:clamp(35px,6vw,110px)}
+.golden-press{border-top:1px solid var(--line2);padding:clamp(50px,6vw,96px) var(--pad) clamp(70px,8vw,130px);display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);column-gap:7%;row-gap:40px}
+.golden-press-intro h3{font:750 clamp(38px,5vw,75px)/1 var(--display);letter-spacing:-.065em;margin:24px 0 20px;overflow-wrap:normal}
+.golden-press-intro p{max-width:45ch;font:400 15px/1.8 var(--text);margin:0 0 18px}
+.golden-press-content{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:clamp(15px,2.5vw,40px);align-items:start;min-width:0}
+.golden-press-shot{display:block;border:1px solid var(--line2);background:white;padding:8px;transform:rotate(-2deg);transition:transform .2s ease}
+.golden-press-shot:hover{transform:rotate(0)}
+.golden-press-shot img{display:block;width:100%;height:auto;object-fit:contain}
+.golden-press-links{min-width:0;border-top:1px solid var(--line2)}
+.golden-press-links>a{display:grid;grid-template-columns:minmax(0,1fr) 25px;column-gap:12px;row-gap:8px;padding:21px 0;border-bottom:1px solid var(--line2);color:var(--ink);text-decoration:none}
+.golden-press-links .label{grid-column:1/-1;color:var(--accent);font-size:10px;letter-spacing:.09em}
+.golden-press-headline{font:650 clamp(14px,1.15vw,18px)/1.35 var(--text)}
+.golden-press-links .link-arrow{justify-self:end;color:var(--accent)}
+@media(max-width:900px){
+ .golden-intro{grid-template-columns:1fr;gap:20px}
+ .golden-intro h2{font-size:clamp(62px,13vw,108px)}
+ .golden-press{grid-template-columns:1fr}
+ .golden-press-intro h3{font-size:clamp(40px,8vw,70px)}
+ .work-camera-images{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .work-camera-images figure:first-child{grid-column:1/-1}
+ .work-camera-images img{aspect-ratio:16/10}
+}
+@media(max-width:599px){
+ .golden-intro h2{font-size:clamp(53px,14vw,82px)}
+ .golden-frame-pair{grid-template-columns:1fr}
+ .golden-frame-pair figure:nth-child(2){margin:0}
+ .golden-press-content{grid-template-columns:1fr}
+ .golden-press-shot{width:min(74%,340px);margin:0 auto 10px}
+ .work-camera-images{grid-template-columns:1fr 1fr;gap:18px 12px}
+ .work-camera-images figure:first-child{grid-column:1/-1}
+ .work-camera-images figure:last-child{grid-column:1/-1;width:72%;justify-self:end}
+ .work-camera-images figcaption{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.golden-press-shot{transition:none}}
+
+/* REVISION 15 / clear mobile rhythm for ISTA strategy; remove decorative camera star. */
+.ista-strategy-heading h2{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(7px,.8vw,13px);line-height:1.14}
+.ista-strategy-heading h2>span{display:block;line-height:1.14}
+.ista-strategy-heading h2>em{display:block;line-height:1.16;max-width:100%}
+@media(max-width:700px){
+  .ista-context{padding-top:clamp(54px,12vw,76px);padding-bottom:clamp(66px,12vw,86px)}
+  .ista-strategy-heading h2{font-size:clamp(38px,9.8vw,54px);line-height:1.15;letter-spacing:-.045em;gap:clamp(9px,2.3vw,15px);margin:23px 0 0}
+  .ista-strategy-heading h2>span{line-height:1.15}
+  .ista-strategy-heading h2>em{font-size:.92em;line-height:1.19;letter-spacing:-.035em}
+  .ista-strategy-body{margin-top:clamp(32px,8vw,48px)}
+  .ista-strategy-body>p{font-size:clamp(18px,4.8vw,22px);line-height:1.66;letter-spacing:-.015em}
+  .ista-strategy-results{margin-top:clamp(33px,8vw,44px);padding-top:25px}
+  .ista-strategy-results h3{font-size:19px;line-height:1.4;margin-bottom:16px}
+  .ista-strategy-results p{font-size:14px;line-height:1.8;margin-bottom:24px}
 }

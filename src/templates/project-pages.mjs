@@ -30,7 +30,7 @@ export function projectBodies({projects,site,image,link,rule,projectFacts,projec
  ${projectFacts(i)}
  <nav class="ista-section-index" aria-label="On this page"><a href="#strategy">01 Strategy</a><a href="#campaigns">02 Films</a><a href="#next-chapter">03 The Next Chapter</a><a href="#publications">04 Publications</a><a href="#photography">05 Photography</a></nav>
  <section class="ista-context" id="strategy" aria-labelledby="ista-strategy-title">
-   <div class="ista-strategy-heading"><span class="label">STRATEGY / DISTRIBUTION / MEASUREMENT</span><h2 id="ista-strategy-title">My goal is to<br><em>win attention.</em></h2></div>
+   <div class="ista-strategy-heading"><span class="label">STRATEGY / DISTRIBUTION / MEASUREMENT</span><h2 id="ista-strategy-title"><span>My goal is to</span><em>win attention.</em></h2></div>
    <div class="ista-strategy-body"><p>At ISTA, I plan and manage digital campaigns across creative production, distribution, and measurement. I use performance data to decide what to make, where to put it, and what to change.</p>
    <div class="ista-strategy-results"><h3>Results available on request.</h3><p>I don’t publish campaign analytics here, but I can discuss selected results—including lead generation, conversion rates, and paid distribution—and the strategy behind the work.</p><a href="/contact/" class="arrow-link">Get in touch <span class="link-arrow" aria-hidden="true"></span></a></div></div>
    <div class="ista-atmosphere" aria-hidden="true"><span>01</span><span>02</span><span>03</span></div>
