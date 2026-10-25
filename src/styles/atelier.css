@@ -429,7 +429,6 @@ a:hover{text-underline-offset:4px}
 
 /* Portrait media: source files are 720×1280; leave the entire frame visible. */
 .ista-intro-film .local-film,
-.ista-film-frame .local-film,
 .chapter-image-wrap .local-film,
 .history-film-media .local-film,
 .history-film-media video,
@@ -1379,5 +1378,118 @@ a:hover{text-underline-offset:4px}
   }
   :root[data-design-layout=gallery] .thread-door h3{
     font-size:clamp(21px,2.55vw,30px);overflow-wrap:break-word;
+  }
+}
+
+/* REVISION 24 — widescreen Charles testimonial, stronger protest-photo hierarchy. */
+.project-ista .ista-film-grid-single{
+  display:grid;grid-template-columns:minmax(0,1fr)!important;
+  width:100%;max-width:none;
+  padding-top:clamp(35px,5vw,75px);
+}
+.project-ista .ista-film-grid-single > article{
+  display:block!important;width:min(100%,1080px);max-width:100%;
+  margin-inline:auto;min-width:0;
+}
+.project-ista .ista-film-grid-single .ista-film-frame{
+  width:100%;max-width:none;margin:0;padding-top:20px;
+}
+.project-ista .ista-film-grid-single .video-embed{
+  display:block;width:100%;max-width:none;aspect-ratio:auto;
+  border:9px solid var(--ink);box-shadow:15px 15px 0 var(--card);
+  overflow:hidden;background:#111;
+}
+.project-ista .ista-film-grid-single .local-film.landscape-film{
+  display:block;width:100%!important;height:auto!important;
+  max-height:none!important;aspect-ratio:16/9!important;
+  object-fit:contain!important;background:#111;
+}
+.project-ista .ista-film-grid-single h3,
+.project-ista .ista-film-grid-single p{max-width:1080px;margin-left:0;margin-right:0}
+/* First show the scale of collective public action. Let the portrait archive
+   follow as a quieter, browseable record of individuals. */
+.project-ista .ista-photo-essay{padding-top:clamp(28px,5vw,72px)}
+.project-ista .photo-essay-grid{display:block}
+.project-ista .photo-essay-title{
+  position:static;display:flex;justify-content:space-between;align-items:end;
+  gap:clamp(22px,5vw,90px);margin:0 0 clamp(26px,4vw,64px);
+}
+.project-ista .photo-essay-title h2{min-width:0}
+.project-ista .photo-essay-title p{
+  flex:0 1 345px;max-width:345px;margin:0 0 5px;
+  font-size:clamp(13px,1.3vw,17px);line-height:1.6;
+}
+.project-ista .photo-run{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)!important;
+  gap:clamp(20px,3.7vw,64px)!important;
+  align-items:start;
+}
+.project-ista .photo-run figure{
+  position:relative;transform:none!important;grid-column:auto;
+  width:100%!important;margin:0!important;max-width:none;
+}
+.project-ista .photo-run figure img{display:block;width:100%;height:auto;object-fit:contain}
+.project-ista .photo-run .protest-lead{grid-column:1 / -1}
+.project-ista .photo-run .protest-crowd{grid-column:1;grid-row:2}
+.project-ista .photo-run .sign-portrait{
+  grid-column:2;grid-row:2;align-self:center;
+  width:min(100%,470px)!important;justify-self:center;
+}
+.project-ista .photo-run .assembly-photo{
+  grid-column:1 / -1;justify-self:end;
+  width:min(100%,850px)!important;
+}
+.project-ista .photo-run figcaption{font-size:10px;line-height:1.6;margin-top:11px}
+.project-ista .event-gallery-heading{
+  display:flex;align-items:end;justify-content:space-between;gap:25px;
+  border-top:1px solid var(--line2);
+  margin:clamp(55px,8vw,125px) 0 24px;padding-top:25px;
+}
+.project-ista .event-gallery-heading h3{
+  font:650 clamp(25px,3.5vw,48px)/1.12 var(--display);
+  letter-spacing:-.055em;margin:10px 0 0;
+}
+.project-ista .event-gallery-heading p{
+  color:var(--muted);font-size:13px;line-height:1.6;max-width:240px;
+}
+.project-ista .portrait-strip{
+  display:grid;grid-template-columns:none;grid-auto-flow:column;
+  grid-auto-columns:clamp(158px,17vw,235px);
+  gap:clamp(12px,1.8vw,25px);margin:0;
+  overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;padding:3px 0 20px;
+}
+.project-ista .portrait-strip figure,
+.project-ista .portrait-strip figure:nth-child(2){
+  width:100%;min-width:0;margin:0;scroll-snap-align:start;
+}
+.project-ista .portrait-strip figure a{display:block}
+.project-ista .portrait-strip figure img{
+  display:block;width:100%;aspect-ratio:3/4;object-fit:contain;
+  background:var(--card);
+}
+.project-ista .portrait-strip figcaption{
+  margin-top:12px;font-size:9px;line-height:1.5;letter-spacing:.045em;
+}
+@media(max-width:700px){
+  .project-ista .ista-film-grid-single{padding-top:30px}
+  .project-ista .ista-film-grid-single .ista-film-frame{padding-top:12px}
+  .project-ista .ista-film-grid-single .video-embed{
+    border-width:5px;box-shadow:7px 7px 0 var(--card);
+  }
+  .project-ista .photo-essay-title{display:block;margin-bottom:24px}
+  .project-ista .photo-essay-title p{margin:16px 0 0;max-width:370px;font-size:14px}
+  .project-ista .photo-run{display:block!important}
+  .project-ista .photo-run figure{margin:0 0 24px!important}
+  .project-ista .photo-run .sign-portrait{
+    width:min(78%,390px)!important;margin:0 auto 28px!important;
+  }
+  .project-ista .photo-run .assembly-photo{width:100%!important}
+  .project-ista .event-gallery-heading{margin-top:55px;align-items:start;gap:15px}
+  .project-ista .event-gallery-heading p{display:none}
+  .project-ista .portrait-strip{
+    grid-auto-columns:clamp(150px,58vw,240px);gap:13px;
+    scroll-snap-type:x mandatory;
   }
 }
