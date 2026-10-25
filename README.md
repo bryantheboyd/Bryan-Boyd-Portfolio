@@ -1,0 +1,154 @@
+# CURRENT HANDOFF — REVISION 19 (OCTOBER 24, 2026)
+
+**Important mobile fix:** A missing closing brace put much of `src/styles/atelier.css` inside a hover-only media query. This has been fixed and the entire site has been rebuilt. ISTA's strategy section and Cinematography now receive their intended responsive styles on touch devices. Tablet layouts, section-index touch targets, and a few small-screen titles are also improved. See `REVISION-19.md` for the 384-state responsive audit, interaction checks, asset verification, and deployment notes. Both editable source and ready-to-host `dist/` are included.
+
+# CURRENT HANDOFF — REVISION 12 (OCTOBER 24, 2026)
+
+Matched the two new batches of project stills into the Index, preserving existing credit text and image galleries. Details and matching audit are in `REVISION-12.md`, `INDEX-IMAGE-CATALOG.csv`, and `INDEX-CREDIT-COVERAGE.csv`. The site includes the revised `dist/` build.
+
+> **Revision 09:** Link and directional arrows are replaced by the supplied side-eye symbol. See `REVISION-09.md`.
+
+## CURRENT HANDOFF — REVISION 07 (OCTOBER 23, 2026)
+
+See `REVISION-07.md` for the Work-page formatting pass and quieter placement of Camera Work. Camera is no longer in the primary navigation, About shortcuts, or footer; it is introduced only within Work, where the detailed `/cinematography/` page remains available. Index image assignments are unchanged and image matching is paused.
+
+To run the downloaded website, open `bryan-boyd-website` in Terminal and run `npm run preview`. After source edits run `npm run build` first. The compiled `dist/` is included.
+
+# Bryan Boyd — The editing room
+
+A portfolio you can explore: three channels, three threads through the work, and a searchable archive with a contact-sheet view. Built on the supplied dependency-free Node static site. Source files and a ready-to-host `dist/` build are included. No framework migration or package installation is required.
+
+## Open the site
+
+With Node.js installed, open a terminal in this folder and run:
+
+```sh
+npm run preview
+```
+
+Open **http://localhost:4173**. Stop the preview with Ctrl+C. HTML pages use site-root paths, so use the preview server instead of double-clicking HTML files. After editing source files, run `npm run build` before previewing.
+
+## Take a look around
+
+- **Get to the point** opens the short version: a first-person bio, the reel, and contact. The header puts a compact Emmy/client proof line beneath “Film / Strategy / Other Things.”
+- **Change the channel** on the opening screen. Documentary, public life, and synthetic images each have a different image, visual treatment, and project link. **Another take** changes the still. Arrow keys also switch channels when the opening has focus.
+- **The room** is a wall of eight featured projects. **Play reel** starts the reel when you ask for it.
+- **Threads** connects projects through three questions and ideas. Each project carries a next-stop link when you enter through a thread.
+- **Index** contains 46 records including the original production credits, ISTA, The Next Chapter, Endless Coronet, and the Kyle Larson operator credit. Search by title, client, role or collaborator; filter by role or category; switch between list and contact sheet. **Pull something at random** draws from the current filtered selection.
+- **Bryan** contains the biography, portrait, full recognition record and CV.
+- **Contact** opens the dedicated `/contact/` page with email, copy-email button and CV. Quick-contact dialogs remain available from relevant pages. Escape closes dialogs and returns keyboard focus.
+- **Endless Coronet** lets visitors select one of five supplied exposures, open its examination record, and enlarge the original images and plates.
+
+## Apply to the existing GitHub / Vercel site
+
+1. Keep a backup or commit of the current repository.
+2. Copy the contents of this folder into the existing `Bryan-Boyd-Portfolio` checkout. Preserve the checkout's own `.git` folder. The ZIP contains no `.git` history.
+3. Run `npm run build` and `npm run preview`, then review locally.
+4. Commit and push when ready to deploy through the existing GitHub → Vercel connection.
+
+Vercel settings remain: Framework **Other**, build command **npm run build**, output directory **dist**. No deployment or remote push was performed as part of this delivery.
+
+## Pages
+
+- `/` — credentials, three-channel opening, thread entrances, project fragments and random record
+- `/the-point/` — concise bio, reel, and contact
+- `/work/` — project wall and reel
+- `/threads/` — three curated routes through the work
+- `/work/reunited/` — Snap Originals directing work, Season 1 Episodes 3 and 6
+- `/work/the-waiting-game/` — locally hosted trailer, fresh 1080p-source frames, credits and press clippings
+- `/work/netflix/` — documentary field-production records
+- `/work/year-in-search/` — Google Year in Search 2020, with the supplied YouTube video embedded
+- `/work/wall-street-journal/` — documentary production record and the supplied YouTube video
+- `/work/ista/` — photography essay, publications and campaigns
+- `/endless-coronet/` — exposure viewer, examination plates and artist statement
+- `/index/` — searchable archive with list and contact-sheet views
+- `/about/` — biography, contact and recognition
+- `/contact/` — dedicated contact page with email, CV and About links
+
+All previous routes remain available. `404.html`, canonical and social metadata, robots.txt and sitemap.xml are generated by the build.
+
+## Editing
+
+- `src/data/credits.json`: all 42 production credits; Google title corrected at the user’s request
+- `src/data/projects.json`: featured project information
+- `src/data/experience.json`: channels, alternate frames, thread titles and stops
+- `src/data/recognition.json`: supplied awards and recognition
+- `src/data/site.json`: name, email, domain and artwork URL
+- `src/templates/project-pages.mjs`: individual project layouts and copy
+- `src/templates/the-point.mjs`: the short bio, reel, and contact
+- `scripts/build.mjs`: shared layout, homepage, index, biography and page generation
+- `src/styles/site.css`: responsive visual system
+- `src/styles/mobile.css`: dedicated phone and tablet composition and vector arrows
+- `src/styles/the-point.css`: compact header credentials, floating shortcut, and Get to the Point page
+- `src/scripts/site.js`: channel cuts, dialogs, archive views/search, random records, threads and exposure selection
+- `public/`: original reel/CV, optimized supplied photographs, film frames and self-hosted fonts
+
+The build regenerates `dist/` entirely. Thread links use `?thread=...&stop=...` and preserve section anchors. Index filters, search and view are shareable through the URL. Direct record links open the matching disclosure.
+
+## Analytics and accessibility
+
+The existing GA4 ID **G-XTPLG9LX0Y** remains on every page. Its installation was checked in generated HTML; live event collection must be confirmed in the GA4 property after deployment.
+
+Anton and Archivo are self-hosted under the SIL Open Font License. There are no new runtime dependencies or remote image hotlinks. The Google and WSJ pages embed the supplied videos through YouTube’s privacy-enhanced player, with direct viewing links as a fallback. No channel advances automatically, and no audio autoplays. The reel and locally hosted Waiting Game trailer use no automatic playback; phones receive the smaller supplied reel. The 75-second trailer is a web-optimized 1080p derivative of the uploaded edit. YouTube embeds are lazy loaded. Reduced-motion preferences are respected. Native links, archive disclosures, contact email and the full Coronet sequence remain available without JavaScript; enhanced controls require it.
+
+## Verification
+
+- Successful dependency-free production build.
+- Chromium layout checks across all 11 original routes at 1440, 390 and 320 pixels: no horizontal overflow, missing images or JavaScript errors.
+- All channels, alternate images, channel keyboard controls, reel sources, Escape-to-close and focus restoration.
+- Archive search, category/role filters, empty state, reset, list/contact-sheet views, URL state, direct record links, keyboard disclosures and random selection from the filtered pool.
+- All nine thread stops, next links, completion state and section anchors.
+- All five Coronet image/plate pairings, full-size image dialog, contact end card and copy-email control.
+- No-JavaScript archive disclosures and Coronet sequence, plus reduced-motion behavior.
+- Generated local links, image integrity, canonical metadata and GA4 installation; preservation of all original credits, with the requested Google title correction.
+
+See `REDESIGN-NOTES.md` for the visual direction and asset sources.
+
+## September 28 additions
+
+- Fresh homepage and alternate Waiting Game stills were extracted from `TWG Boyd Website Edit.mp4`; a 1080p web derivative is hosted on the project page as **The Waiting Game Trailer**. The homepage links directly to this player. The external Waiting Game website link was removed.
+- **Google Year in Search 2020** replaces the former site title. Its existing index anchor is retained so old record links still work. Google and WSJ use the exact YouTube IDs supplied by Bryan.
+- **Reunited** has a dedicated homepage feature, a project-wall entry, an individual page, and prominent Director / S1E3 / S1E6 credits.
+- **Orgasm Inc.** uses the title image extracted from the supplied reel. Its archive image is separate from D.B. Cooper’s.
+- Targeted checks cover the eight changed routes at 1440/390/320 pixels, native trailer playback and seeking, new images, corrected titles and embed markup. YouTube streaming is controlled by the external provider; the layout tests substitute the external frames and do not claim to verify remote streaming.
+
+## Latest refinements
+
+The Waiting Game homepage opening, project card, archive image and social previews now use the interview still shown in “And a fair share.” The supplied September 28, 3:38 PM court/title screenshot is the trailer’s poster image. Reunited follows “Take the Long Way” on the homepage. The ISTA campaign examples now embed the supplied School Funding Explainer (starting at 00:09, matching the supplied link) and Why I Joined ISTA video, each beside its corresponding campaign description.
+
+## Mobile experience revision
+
+Phones and small tablets now have a dedicated composition in `src/styles/mobile.css`: a sticky menu, labeled channel controls, consistent project cards, readable text and filters, an About portrait that stays clear of the heading, ISTA section shortcuts, and larger dialog controls. The Waiting Game trailer uses a 720p mobile derivative while desktop keeps its 1080p file. The original GA4 property `G-XTPLG9LX0Y` remains installed on every page. See `MOBILE-REVIEW.md` for the evaluation, changes, validation, and deployment notes.
+
+## Arrow styling and desktop opening
+
+Mobile link arrows now use a custom SVG line shape in the current text color, avoiding platform-specific emoji rendering. The desktop homepage opens on the Waiting Game mural still; Another take switches to the interview. Mobile still opens on the interview and offers the mural as its alternate. Project thumbnails and the trailer poster retain their previously approved images.
+
+## September 29: Get to the Point
+
+The header includes “Five-time Emmy® winner · Netflix · Snap · WSJ · Google” beneath “Film / Strategy / Other Things.” The separate homepage strip is removed so the film begins immediately below the header. The strategy sentence was removed at Bryan’s request; the campaign page retains its platform-specific results and source note.
+
+“Get to the Point,” a compact floating button in the lower-right corner, opens `/the-point/`. On the homepage it appears only as a floating shortcut after scrolling into the opening film. It stays available while scrolling and is omitted on the destination page. It is not part of the main navigation. The first-person bio keeps the editing-room voice: “I make films. I build campaigns. I want both to do something.” The reel and contact use the existing accessible dialogs. On phones, the reel and contact buttons appear before the longer bio.
+
+The homepage and initial new page were checked in Chromium at 320, 390, 768, 1024, and 1440 pixels: no horizontal overflow, missing images, or JavaScript errors. Checks also covered the homepage shortcut, mobile navigation, reel sources, contact dialog, Escape and focus restoration. The desktop mural, mobile interview still, D.B. Cooper feature, vector arrows, and original GA4 configuration are retained. Production build: 13 pages plus 404, 44 archive records.
+
+The selected-project section was subsequently removed at Bryan’s request, along with its jump button, unused styles, and references in the homepage shortcut and metadata. The simplified page keeps the bio, reel, and contact.
+
+## Revision 06 — camera work and image-credit mapping
+
+New page: `/cinematography/`. Matched credit photographs: `src/data/index-images.json`; inventory: `INDEX-IMAGE-CATALOG.csv`. See `REVISION-06.md` for the verified credit assignments and simple repeatable image-ingestion process. Add future pictures under `public/images/index/` and update the JSON; the Index thumbnails, preview and expanded galleries are generated automatically. Do not guess at uncertain matches.
+
+## Latest revision
+
+See `REVISION-08.md` for navigation simplification, new directional link marks, corrected Gallery portrait crop, Work page Mellencamp photo, and mobile hero/reel refinements. All changes are in editable source files under `src/` and `public/icons/`, and included in the built `dist/` site.
+
+## Revision 10 (2026-10-24)
+
+The homepage Gallery crop for “Who gets heard?” now preserves the speaker's full head and microphone at desktop and mobile widths. The mobile Play Reel control uses a vector play icon and a clean, responsive editorial treatment. See `REVISION-10.md`.
+
+## Revision 11
+The homepage Gallery card for **Who gets heard?** uses a dedicated landscape-cropped source image to keep the speaker's face visible on mobile. Styles/scripts now carry versioned URLs to reduce caching errors after deployment. See `REVISION-11.md`.
+
+## Revision 17
+
+Cinematography sections now appear in the order Golden Hour, The Sugarman, On the Record, Absolution, and Kyle Larson vs. The Double. Mobile typography and the Golden Hour press section have been revised; Absolution film frames and verified festival recognition are included. See `REVISION-17.md`.

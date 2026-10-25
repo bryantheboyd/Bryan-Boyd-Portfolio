@@ -1,0 +1,25 @@
+{
+  "emmyWins": [
+    {"year":"2018","category":"Nostalgia Program","result":"Winner — Lower Great Lakes Region"},
+    {"year":"2017","category":"Cultural and Historical Programming","result":"Winner — Lower Great Lakes Region"},
+    {"year":"2012","category":"Best Editor","result":"Winner — Lower Great Lakes Region"},
+    {"year":"2012","category":"Cultural and Historical Programming","result":"Winner — Lower Great Lakes Region"},
+    {"year":"2010","category":"Nostalgia Program","result":"Winner — Lower Great Lakes Region"}
+  ],
+  "journalism": [
+    {"year":"2024","name":"Indiana Film Journalists Association","detail":"Edward Johnson-Ott Hoosier Award — The Waiting Game"},
+    {"year":"2020","name":"Indiana Society of Professional Journalists","detail":"Best Coverage of Social Justice Issues"},
+    {"year":"2018","name":"Indiana Society of Professional Journalists","detail":"Best Videography, Indianapolis Market"},
+    {"year":"2015","name":"Indiana Society of Professional Journalists","detail":"Best Coverage of Minority Issues"},
+    {"year":"2012","name":"Indiana Society of Professional Journalists","detail":"Documentary or Special — Journey of the Beams"}
+  ],
+  "festivals": [
+    {"year":"2024","name":"Heartland International Film Festival","detail":"Audience Choice — The Waiting Game"},
+    {"year":"2024","name":"Seattle Film Festival","detail":"Best Sports Documentary — The Sugarman"},
+    {"year":"2021","name":"Sedona International Film Festival","detail":"Documentary Independent Spirit Award — The Addict’s Wake"},
+    {"year":"2021","name":"Heartland International Film Festival","detail":"Audience Choice & Indiana Spotlight — The Addict’s Wake"},
+    {"year":"2018","name":"Indy Shorts","detail":"Indiana Spotlight Award — When Kids Wrote the Headlines"},
+    {"year":"2019","name":"Independent Shorts Awards","detail":"Honorable Mention — Absolution"},
+    {"year":"2019","name":"Queen Palm International Film Festival","detail":"Silver Winner, Best Cinematography — Absolution"}
+  ]
+}

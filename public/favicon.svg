@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title"><title>Bryan Boyd</title>
+<rect width="64" height="64" rx="11" fill="#202c39"/>
+<path d="M15 12h20c10.2 0 16 5 16 13 0 5.2-2.5 8.2-6.5 10.2 5.4 1.8 8.4 5.3 8.4 11.1 0 8.8-6.4 13.7-17.4 13.7H15V12zm11 10v10h8c4.3 0 6.4-1.8 6.4-5s-2.2-5-6.4-5h-8zm0 19v11h9c4.4 0 6.6-1.8 6.6-5.4 0-3.8-2.2-5.6-6.6-5.6h-9z" fill="#f3efe6"/>
+<rect x="46" y="7" width="13" height="13" fill="#df482f" transform="rotate(10 52.5 13.5)"/>
+</svg>
